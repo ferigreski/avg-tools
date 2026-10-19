@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agenda Judicial Electrónica · SIJ</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+<style>
+:root{font-family:Arial,sans-serif;color:#243347;background:#f0f3f7}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid #38bdf8;outline-offset:2px}header{background:#173a60;color:white;padding:18px 26px}nav{display:flex;gap:8px;margin-top:18px}.btn{border:1px solid #cbd5e1;background:white;color:#234364;border-radius:6px;padding:9px 15px}.primary{background:#1d5687;color:white;border-color:#1d5687}.toolbar{background:white;border-bottom:1px solid #cbd5e1;padding:16px 24px;display:flex;gap:14px;flex-wrap:wrap;align-items:end}label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600}input,select{border:1px solid #bfcbd8;border-radius:5px;padding:9px;background:white;color:#25374b;min-width:0}.legend{display:flex;gap:16px;font-size:12px;flex-wrap:wrap;padding:12px 24px;background:#fafcfe}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.layout{display:flex;gap:20px;padding:20px}aside{width:240px;flex-shrink:0}.card{background:white;border:1px solid #d8e0ea;border-radius:8px;padding:16px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;margin-top:12px}.calendar button{border:0;border-radius:5px;background:transparent;padding:8px 0;font-size:12px}.calendar button:hover{background:#e2e8f0}.calendar .selected{background:#1d5687;color:white}.muted{color:#718096;font-size:12px}.agenda{flex:1;min-width:0}.scroll{overflow:auto;max-height:70vh;border:1px solid #ccd6e2;border-radius:8px;background:white}.grid-head{display:grid;grid-template-columns:72px repeat(5,minmax(180px,1fr));min-width:972px;position:sticky;top:0;z-index:10;background:#e9eff6}.grid-head div{padding:15px 8px;text-align:center;border-right:1px solid #ccd6e2;font-size:12px;font-weight:bold}.timeline{position:relative;display:grid;grid-template-columns:72px repeat(5,minmax(180px,1fr));min-width:972px}.hours{position:relative;background:#f7f9fc}.hour{position:absolute;width:100%;font-size:11px;color:#64748b;border-top:1px solid #e1e7ef;padding:3px 8px}.lane{position:relative;border-left:1px solid #ccd6e2;background:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,#e5eaf1 35px,#e5eaf1 36px)}.event{position:absolute;left:5px;right:5px;border:1px solid #cbd5e1;border-left:5px solid var(--state);border-radius:5px;background:var(--tint);padding:6px 8px;text-align:left;font-size:11px;overflow:auto;color:#172c42;box-shadow:0 2px 3px #00000009}.event strong{display:block;font-size:11px}.event span{display:block;margin-top:3px}.modal{position:fixed;inset:0;background:#10243bb3;z-index:30;display:flex;align-items:center;justify-content:center;padding:20px}.modal[hidden]{display:none}.dialog{background:white;border-radius:12px;width:min(820px,100%);max-height:92vh;overflow:auto;box-shadow:0 20px 80px #0005}.dialog-head{padding:20px 24px;background:#173a60;color:white;display:flex;justify-content:space-between;align-items:center}.dialog-head h2{margin:0;font-size:18px}.close{border:0;background:none;color:inherit;font-size:24px}form{padding:24px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}.wide{grid-column:1/-1}.actions{display:flex;justify-content:end;gap:10px;margin-top:24px}.alert{padding:12px;background:#fff1f2;color:#9f1239;border-radius:6px;margin-bottom:16px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px}td,th{text-align:left;padding:12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}#notice{color:#166534;font-size:13px;margin-bottom:12px} @media(max-width:900px){.layout{flex-direction:column;padding:12px}aside{width:100%}.calendar{max-width:300px}.fields{grid-template-columns:1fr}.wide{grid-column:auto}.toolbar{padding:12px}header{padding:16px}.legend{padding:12px}}
+
+.slot{position:absolute;left:0;right:0;width:100%;border:0;border-bottom:1px solid #e5eaf1;background:transparent;cursor:pointer;transition:background-color .18s ease;padding:0;}
+.slot:hover,.slot:focus-visible{background:#dbeafe;}
+.slot:focus-visible{outline:2px solid #2563eb;outline-offset:-2px;}
+.event{z-index:1;}
+
+.context-menu{position:fixed;z-index:50;min-width:230px;background:#fff;border:1px solid #aebed0;border-top:3px solid #173a60;border-radius:5px;box-shadow:0 8px 24px #10243b40;padding:4px;}
+.context-menu[hidden]{display:none}.context-menu button{display:block;width:100%;text-align:left;background:white;border:0;padding:11px 14px;color:#243347;font-size:13px;border-radius:3px}.context-menu button:hover,.context-menu button:focus-visible{background:#e8f0f8}.context-menu .danger{color:#b91c1c}
+</style>
+</head>
+<body>
+<header><div class="flex items-center justify-between gap-4"><div><div class="text-xs tracking-widest opacity-70 mb-1">PODER JUDICIAL · SIJ</div><h1 class="text-xl font-semibold">Agenda Judicial Electrónica</h1></div><span class="text-xs opacity-80">Módulo de audiencias<br>Demostración local</span></div><nav aria-label="Menú principal"><button class="btn" id="add">＋ Agendar</button><button class="btn" id="activities">Actividades</button><button class="btn" id="report">Reporte ↓</button></nav></header>
+<section class="toolbar" aria-label="Filtros de agenda">
+<label>Sede<select id="site"><option>Sede Central</option><option>Sede Iquitos</option></select></label>
+<label>Especialidad<select id="specialty"><option>Penal</option></select></label>
+<label>Órgano<select id="organ"><option value="Investigación Preparatoria">Juzgados de Investigación Preparatoria (JIP)</option><option value="Juzgado Unipersonal">Juzgados Penales Unipersonales (JUP)</option></select></label>
+<label>Fecha<input id="date" type="date" required></label>
+<label>Escala<select id="scale"><option value="15">15 min</option><option value="30">30 min</option><option value="60">60 min</option></select></label>
+<button class="btn" id="today">Hoy</button></section>
+<div class="legend"><span><i class="dot" style="background:#22c55e"></i>Pendiente</span><span><i class="dot" style="background:#3b82f6"></i>Atendida</span><span><i class="dot" style="background:#eab308"></i>Caducada</span><span><i class="dot" style="background:#ef4444"></i>Anulada</span><span class="muted">Los horarios se muestran en hora local de la sede.</span></div>
+<div class="layout"><aside><section class="card"><div class="flex items-center justify-between"><button class="btn" id="prev" aria-label="Mes anterior">‹</button><strong id="month" class="text-sm"></strong><button class="btn" id="next" aria-label="Mes siguiente">›</button></div><div id="calendar" class="calendar"></div></section><section class="card mt-4"><div class="muted">AUDIENCIAS DEL DÍA</div><div id="count" class="text-3xl font-semibold mt-2">0</div><p class="muted mt-3">Selecciona una fecha para consultar la agenda. Pulsa una audiencia para ver sus datos y actualizar su estado.</p></section></aside>
+<main class="agenda"><div class="flex justify-between items-center mb-3 gap-3"><div><h2 id="heading" class="font-semibold text-lg"></h2><p class="muted">Programación de salas · 07:00 a 20:00 · Clic derecho para acciones</p></div><span class="muted">Cálculo de cruces en tiempo real</span></div><div id="notice" role="status"></div><div class="scroll"><div class="grid-head"><div>HORA</div><div>SALA_01_JIP</div><div>SALA_02_JIP</div><div>SALA_03_JIP</div><div>SALA_04_JIP</div><div>SALA_05_JIP</div></div><div id="timeline" class="timeline"></div></div></main></div>
+<div id="modal" class="modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="dialog-head"><h2 id="modal-title">Búsqueda y Registro de Audiencia</h2><button class="close" id="close" aria-label="Cerrar">×</button></div><form id="form"><div id="error" class="alert" role="alert" hidden></div><div class="fields">
+<label class="wide">Número de Expediente<input name="case" required pattern="[0-9]{5}-[0-9]{4}-[0-9]-JR-PE-[0-9]{2}" placeholder="00001-2026-1-JR-PE-01" title="Formato XXXXX-AAAA-I-JR-PE-NN"></label>
+<label>Juzgado / Dependencia<select name="court"><option>1.º Juzgado de Investigación Preparatoria</option><option>2.º Juzgado de Investigación Preparatoria</option><option>Juzgado Penal Unipersonal</option></select></label>
+<label>Tipo de Audiencia<select name="type"><option>Prueba Anticipada</option><option>Control de Acusación</option><option>Prisión Preventiva</option></select></label>
+<label>Sala de Audiencia<select name="room" id="rooms"></select></label><label>Delito<input name="crime" required placeholder="Descripción del delito"></label>
+<label>Fecha<input name="date" type="date" required></label><label>Estado<select name="status"><option>Pendiente</option><option>Atendida</option><option>Caducada</option><option>Anulada</option></select></label>
+<label>Hora Inicio<input name="start" type="time" min="07:00" max="19:59" required></label><label>Hora Fin<input name="end" type="time" min="07:01" max="20:00" required></label>
+<label>Juez<select name="judge"><option>Dra. María Torres</option><option>Dr. José Ramírez</option><option>Dra. Elena Ríos</option></select></label>
+<label>Especialista de Audiencia<select name="specialist"><option>Ana López</option><option>Carlos Medina</option><option>Lucía Díaz</option></select></label>
+</div><p class="muted mt-4">Se verifican cruces de sala, juez y especialista entre todas las sedes y órganos. Las audiencias anuladas no reservan recursos.</p><div class="actions"><button type="button" class="btn" id="cancel">Cancelar</button><button type="submit" class="btn primary">Guardar audiencia</button></div></form></section></div>
+<div id="list-modal" class="modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="list-title"><div class="dialog-head"><h2 id="list-title">Actividades de la fecha seleccionada</h2><button class="close" id="close-list" aria-label="Cerrar actividades">×</button></div><div class="p-5 table-wrap" id="list"></div></section></div>
+<div id="context-menu" class="context-menu" role="menu" aria-label="Acciones de la agenda" hidden></div>
+<script>
+const $=s=>document.querySelector(s);
+const roomsFor=organ=>Array.from({length:5},(_,i)=>`SALA_0${i+1}_${organ==='Juzgado Unipersonal'?'JUP':'JIP'}`);
+const courtsFor=organ=>organ==='Juzgado Unipersonal'?['1.º Juzgado Penal Unipersonal','2.º Juzgado Penal Unipersonal']:['1.º Juzgado de Investigación Preparatoria','2.º Juzgado de Investigación Preparatoria'];
+const rooms=Array.from({length:5},(_,i)=>`SALA_0${i+1}_JIP`);
+const colors={Pendiente:['#22c55e','#ecfdf5'],Atendida:['#3b82f6','#eff6ff'],Caducada:['#eab308','#fefce8'],Anulada:['#ef4444','#fef2f2']};
+const localDate=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const today=localDate(new Date());
+const minutes=t=>Number(t.slice(0,2))*60+Number(t.slice(3,5));
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let month=new Date(today+'T12:00:00'),editing=null,previousFocus;
+const storageKey='sij-agenda-demo-v1';
+const seed=[['00001','Prisión Preventiva',0,'08:00','09:00','Pendiente'],['00002','Control de Acusación',1,'09:00','10:30','Atendida'],['00003','Prueba Anticipada',2,'11:00','12:00','Caducada'],['00004','Prisión Preventiva',3,'14:00','15:00','Anulada'],['00005','Control de Acusación',4,'16:00','17:30','Pendiente']].map((x,i)=>({id:crypto.randomUUID(),case:`${x[0]}-${today.slice(0,4)}-1-JR-PE-01`,type:x[1],room:rooms[x[2]],start:x[3],end:x[4],status:x[5],date:today,site:'Sede Central',organ:'Investigación Preparatoria',court:'1.º Juzgado de Investigación Preparatoria',crime:'Delito de ejemplo',judge:['Dra. María Torres','Dr. José Ramírez','Dra. Elena Ríos'][i%3],specialist:['Ana López','Carlos Medina','Lucía Díaz'][i%3]}));
+let events=[];
+async function api(path, data) {
+ const response=await fetch(path,data===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+ const result=await response.json();
+ if(!response.ok)throw new Error(result.error||'No se pudo acceder a la agenda.');
+ return result;
+}
+async function loadEvents(){
+ try{
+  events=await api('/api/audiencias');
+  if(!events.length){
+   let initial=seed;
+   try{const saved=JSON.parse(localStorage.getItem(storageKey));if(Array.isArray(saved)&&saved.length)initial=saved;}catch{}
+   events=await api('/api/initialize',initial);
+  }
+  render();
+ }catch(error){$('#notice').textContent='No se pudo cargar la agenda: '+error.message;}
+}
+$('#date').value=today;
+$('#rooms').innerHTML=rooms.map(r=>`<option>${r}</option>`).join('');
+function selected(){return events.filter(e=>!(e.kind==='reservation'&&e.status==='Anulada')&&e.date===$('#date').value&&e.site===$('#site').value&&e.organ===$('#organ').value).sort((a,b)=>a.start.localeCompare(b.start));}
+function renderCalendar(){
+ const year=month.getFullYear(),m=month.getMonth();$('#month').textContent=month.toLocaleDateString('es-PE',{month:'long',year:'numeric'});
+ const offset=(new Date(year,m,1).getDay()+6)%7,days=new Date(year,m+1,0).getDate();
+ $('#calendar').innerHTML=['L','M','M','J','V','S','D'].map(d=>`<span class="muted">${d}</span>`).join('')+'<span></span>'.repeat(offset)+Array.from({length:days},(_,i)=>{const date=localDate(new Date(year,m,i+1));return `<button data-date="${date}" aria-label="${date}" ${date===$('#date').value?'aria-current="date" class="selected"':''}>${i+1}</button>`;}).join('');
+}
+const timeLabel=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+function emptySlots(room,items,scale,ratio){
+ let html='';
+ for(let start=420;start<1200;start+=scale){
+  const end=Math.min(start+scale,1200);
+  const occupied=items.some(e=>(e.room===room||(e.organ==='Juzgado Unipersonal'&&e.room.replace(/_JIP$/,'_JUP')===room))&&minutes(e.start)<end&&minutes(e.end)>start);
+  if(!occupied)html+=`<button type="button" class="slot" data-room="${room}" data-start="${timeLabel(start)}" style="top:${(start-420)*ratio}px;height:${(end-start)*ratio}px" aria-label="Agendar: ${room}, ${$('#date').value}, ${timeLabel(start)}"></button>`;
+ }
+ return html;
+}
+function openSlot(room,start){
+ openEvent();
+ const fields=$('#form').elements;
+ fields.room.value=room;fields.start.value=start;fields.end.value=timeLabel(minutes(start)+45);
+ if(minutes(start)+45>1200){$('#error').textContent='La duración predeterminada de 45 minutos supera las 20:00. Ajusta la hora de fin antes de guardar.';$('#error').hidden=false;}
+}
+function render(){
+ if(typeof contextMenu!=='undefined')hideContext();
+ const date=$('#date').value;if(!date)return;
+ $('#heading').textContent=new Date(date+'T12:00:00').toLocaleDateString('es-PE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+ const activeRooms=roomsFor($('#organ').value);
+ $('.grid-head').innerHTML='<div>HORA</div>'+activeRooms.map(r=>`<div>${r}</div>`).join('');
+ const scale=Number($('#scale').value),ratio=36/scale,height=780*ratio,items=selected();$('#count').textContent=items.length;
+ $('#timeline').style.height=height+'px';
+ let hours='';for(let m=420;m<1200;m+=scale)hours+=`<div class="hour" style="top:${(m-420)*ratio}px">${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}</div>`;
+ $('#timeline').innerHTML=`<div class="hours">${hours}</div>`+activeRooms.map(room=>`<div class="lane">${emptySlots(room,items,scale,ratio)}${items.filter(e=>e.room===room||(e.organ==='Juzgado Unipersonal'&&e.room.replace(/_JIP$/,'_JUP')===room)).map(e=>{const c=e.kind==='reservation'?['#64748b','#e2e8f0']:colors[e.status];return `<button class="event" data-id="${escapeHTML(e.id)}" style="top:${(minutes(e.start)-420)*ratio}px;height:${Math.max(24,(minutes(e.end)-minutes(e.start))*ratio-3)}px;--state:${c[0]};--tint:${c[1]}" title="${escapeHTML(e.case+' · '+e.type+' · '+e.start+'–'+e.end+' · '+e.status)}"><strong>${escapeHTML(e.case)}</strong><span>${escapeHTML(e.type)}</span><span>${escapeHTML(e.start)} – ${escapeHTML(e.end)} · ${e.status}</span></button>`;}).join('')}</div>`).join('');renderCalendar();
+}
+function openEvent(event){previousFocus=document.activeElement;editing=event?.id||null;$('#form').reset();const organ=event?.organ||$('#organ').value;const availableRooms=roomsFor(organ);if(event&&!availableRooms.includes(event.room))availableRooms.push(event.room);$('#rooms').innerHTML=availableRooms.map(r=>`<option>${escapeHTML(r)}</option>`).join('');const courts=courtsFor(organ);if(event&&!courts.includes(event.court))courts.push(event.court);$('#form').elements.court.innerHTML=courts.map(c=>`<option>${escapeHTML(c)}</option>`).join('');$('#error').hidden=true;$('#modal-title').textContent=event?'Detalle y actualización de Audiencia':'Búsqueda y Registro de Audiencia';$('#form').elements.date.value=$('#date').value;if(event)for(const [k,v]of Object.entries(event)){const field=$('#form').elements.namedItem(k);if(field)field.value=v;}$('#modal').hidden=false;$('#form').elements.case.focus();}
+function closeModal(id){$(id).hidden=true;previousFocus?.focus();}
+function conflict(candidate,all=events){if(candidate.status==='Anulada')return null;return all.find(e=>e.id!==candidate.id&&e.status!=='Anulada'&&e.date===candidate.date&&minutes(candidate.start)<minutes(e.end)&&minutes(candidate.end)>minutes(e.start)&&((e.site===candidate.site&&e.room===candidate.room)||(e.kind!=='reservation'&&candidate.kind!=='reservation'&&(e.judge===candidate.judge||e.specialist===candidate.specialist))));}
+$('#form').addEventListener('submit',async e=>{e.preventDefault();const candidate=Object.fromEntries(new FormData(e.target));candidate.id=editing||crypto.randomUUID();const old=events.find(x=>x.id===editing);candidate.site=old?.site||$('#site').value;candidate.organ=old?.organ||$('#organ').value;let message='';if(minutes(candidate.end)<=minutes(candidate.start))message='La hora fin debe ser posterior a la hora inicio.';else if(minutes(candidate.start)<420||minutes(candidate.end)>1200)message='El horario permitido es de 07:00 a 20:00.';else{const found=conflict(candidate);if(found)message=`Cruce de horario con ${found.case} (${found.start}–${found.end}): sala, juez o especialista ocupado.`;}
+ if(message){$('#error').textContent=message;$('#error').hidden=false;return;}
+ const saveButton=e.target.querySelector('[type="submit"]');saveButton.disabled=true;
+ try{events=await api('/api/audiencias',candidate);}catch(error){$('#error').textContent=error.message;$('#error').hidden=false;return;}finally{saveButton.disabled=false;}
+ $('#date').value=candidate.date;month=new Date(candidate.date+'T12:00:00');closeModal('#modal');$('#notice').textContent='Audiencia guardada correctamente en SQLite.';render();});
+$('#add').onclick=()=>openEvent();$('#close').onclick=$('#cancel').onclick=()=>closeModal('#modal');
+$('#timeline').onclick=e=>{const button=e.target.closest('[data-id]');if(button){const item=events.find(x=>x.id===button.dataset.id);if(item.kind!=='reservation')openEvent(item);}};
+const contextMenu=$('#context-menu');
+let contextTarget=null;
+function hideContext(){contextMenu.hidden=true;}
+async function saveContext(item){
+ try{events=await api('/api/audiencias',item);render();$('#notice').textContent='Cambios guardados en SQLite.';}
+ catch(error){$('#notice').textContent=error.message;}
+}
+function showContext(event){
+ const slot=event.target.closest('.slot'),block=event.target.closest('[data-id]');
+ event.preventDefault();hideContext();if(!slot&&!block)return;
+ contextTarget=event.target;
+ const item=block?events.find(e=>e.id===block.dataset.id):null;
+ const actions=item?(item.kind==='reservation'?[
+  ['Liberar reserva',()=>saveContext({...item,status:'Anulada'})]
+ ]:[
+  ['Ver / Editar Audiencia',()=>openEvent(item)],
+  ['Cambiar Estado',()=>{openEvent(item);$('#form').elements.status.focus();}],
+  ['Anular Audiencia',()=>saveContext({...item,status:'Anulada'}),'danger']
+ ]):[
+  ['📅 Agendar Audiencia',()=>openSlot(slot.dataset.room,slot.dataset.start)],
+  ['🚫 Reservar / Bloquear Sala',()=>saveContext({id:crypto.randomUUID(),kind:'reservation',room:slot.dataset.room,date:$('#date').value,start:slot.dataset.start,end:timeLabel(Math.min(minutes(slot.dataset.start)+Number($('#scale').value),1200)),site:$('#site').value,organ:$('#organ').value,status:'Pendiente'})],
+ ];
+ actions.push(['❌ Cancelar',()=>contextTarget?.focus()]);
+ contextMenu.replaceChildren();
+ for(const [label,action,style]of actions){const button=document.createElement('button');button.type='button';button.role='menuitem';button.textContent=label;if(style)button.className=style;button.onclick=()=>{hideContext();action();};contextMenu.append(button);}
+ contextMenu.hidden=false;contextMenu.style.left=event.clientX+'px';contextMenu.style.top=event.clientY+'px';
+ // Keep the menu accessible at viewport edges.
+ const rect=contextMenu.getBoundingClientRect();contextMenu.style.left=Math.max(0,Math.min(event.clientX,innerWidth-rect.width))+'px';contextMenu.style.top=Math.max(0,Math.min(event.clientY,innerHeight-rect.height))+'px';
+ contextMenu.querySelector('button').focus();
+}
+$('#timeline').addEventListener('contextmenu',showContext);
+$('#timeline').addEventListener('keydown',e=>{if(e.key==='ContextMenu'||(e.shiftKey&&e.key==='F10')){const rect=e.target.getBoundingClientRect();showContext({target:e.target,clientX:rect.left,clientY:rect.top,preventDefault:()=>e.preventDefault()});}});
+ document.addEventListener('click',e=>{if(!contextMenu.contains(e.target))hideContext();});
+ document.addEventListener('keydown',e=>{if(contextMenu.hidden)return;if(e.key==='Escape'){e.preventDefault();hideContext();contextTarget?.focus();}else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const buttons=[...contextMenu.querySelectorAll('button')],index=buttons.indexOf(document.activeElement);buttons[(index+(e.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length].focus();}});
+ window.addEventListener('resize',hideContext);document.addEventListener('scroll',hideContext,true);
+$('#calendar').onclick=e=>{const button=e.target.closest('[data-date]');if(button){$('#date').value=button.dataset.date;render();}};
+$('#prev').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()-1,1);renderCalendar();};$('#next').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()+1,1);renderCalendar();};
+for(const id of ['site','organ','scale','date'])$('#'+id).onchange=()=>{if(id==='date'&&$('#date').value)month=new Date($('#date').value+'T12:00:00');render();};
+$('#today').onclick=()=>{$('#date').value=today;month=new Date(today+'T12:00:00');render();};
+$('#activities').onclick=()=>{previousFocus=document.activeElement;$('#list').innerHTML=selected().length?'<table><thead><tr><th>Expediente</th><th>Sala</th><th>Horario</th><th>Estado</th></tr></thead><tbody>'+selected().map(e=>`<tr><td>${escapeHTML(e.case)}</td><td>${e.room}</td><td>${e.start}–${e.end}</td><td>${e.status}</td></tr>`).join('')+'</tbody></table>':'No hay actividades para estos filtros.';$('#list-modal').hidden=false;$('#close-list').focus();};$('#close-list').onclick=()=>closeModal('#list-modal');
+$('#report').onclick=()=>{const fields=['case','date','site','organ','room','type','start','end','status','judge','specialist'];const csv=[['Expediente','Fecha','Sede','Órgano','Sala','Tipo','Inicio','Fin','Estado','Juez','Especialista'],...selected().map(e=>fields.map(k=>e[k]))].map(row=>row.map(v=>'"'+String(v??'').replace(/^[=+@-]/,"'$&").replace(/"/g,'""')+'"').join(';')).join('\r\n');const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=`agenda-${$('#date').value}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+for(const id of ['#modal','#list-modal'])$(id).addEventListener('click',e=>{if(e.target===$(id))closeModal(id);});
+ document.addEventListener('keydown',e=>{const active=!$('#modal').hidden?$('#modal'):!$('#list-modal').hidden?$('#list-modal'):null;if(!active)return;if(e.key==='Escape')closeModal('#'+active.id);if(e.key==='Tab'){const focusable=[...active.querySelectorAll('button,input,select')];const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+render();
+loadEvents();
+</script>
+</body></html>
