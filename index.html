@@ -2,246 +2,61 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Agenda Judicial Electrónica · SIJ</title>
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+<title>Rol de audiencias programadas · Corte Superior de Justicia de Lima</title>
 <style>
-:root{font-family:Arial,sans-serif;color:#243347;background:#f0f3f7}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid #38bdf8;outline-offset:2px}header{background:#173a60;color:white;padding:18px 26px}nav{display:flex;gap:8px;margin-top:18px}.btn{border:1px solid #cbd5e1;background:white;color:#234364;border-radius:6px;padding:9px 15px}.primary{background:#1d5687;color:white;border-color:#1d5687}.toolbar{background:white;border-bottom:1px solid #cbd5e1;padding:16px 24px;display:flex;gap:14px;flex-wrap:wrap;align-items:end}label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600}input,select{border:1px solid #bfcbd8;border-radius:5px;padding:9px;background:white;color:#25374b;min-width:0}.legend{display:flex;gap:16px;font-size:12px;flex-wrap:wrap;padding:12px 24px;background:#fafcfe}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.layout{display:flex;gap:20px;padding:20px}aside{width:240px;flex-shrink:0}.card{background:white;border:1px solid #d8e0ea;border-radius:8px;padding:16px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;margin-top:12px}.calendar button{border:0;border-radius:5px;background:transparent;padding:8px 0;font-size:12px}.calendar button:hover{background:#e2e8f0}.calendar .selected{background:#1d5687;color:white}.muted{color:#718096;font-size:12px}.agenda{flex:1;min-width:0}.scroll{overflow:auto;max-height:70vh;border:1px solid #ccd6e2;border-radius:8px;background:white}.grid-head{display:grid;grid-template-columns:72px repeat(5,minmax(180px,1fr));min-width:972px;position:sticky;top:0;z-index:10;background:#e9eff6}.grid-head div{padding:15px 8px;text-align:center;border-right:1px solid #ccd6e2;font-size:12px;font-weight:bold}.timeline{position:relative;display:grid;grid-template-columns:72px repeat(5,minmax(180px,1fr));min-width:972px}.hours{position:relative;background:#f7f9fc}.hour{position:absolute;width:100%;font-size:11px;color:#64748b;border-top:1px solid #e1e7ef;padding:3px 8px}.lane{position:relative;border-left:1px solid #ccd6e2;background:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,#e5eaf1 35px,#e5eaf1 36px)}.event{position:absolute;left:5px;right:5px;border:1px solid #cbd5e1;border-left:5px solid var(--state);border-radius:5px;background:var(--tint);padding:6px 8px;text-align:left;font-size:11px;overflow:auto;color:#172c42;box-shadow:0 2px 3px #00000009}.event strong{display:block;font-size:11px}.event span{display:block;margin-top:3px}.modal{position:fixed;inset:0;background:#10243bb3;z-index:30;display:flex;align-items:center;justify-content:center;padding:20px}.modal[hidden]{display:none}.dialog{background:white;border-radius:12px;width:min(820px,100%);max-height:92vh;overflow:auto;box-shadow:0 20px 80px #0005}.dialog-head{padding:20px 24px;background:#173a60;color:white;display:flex;justify-content:space-between;align-items:center}.dialog-head h2{margin:0;font-size:18px}.close{border:0;background:none;color:inherit;font-size:24px}form{padding:24px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}.wide{grid-column:1/-1}.actions{display:flex;justify-content:end;gap:10px;margin-top:24px}.alert{padding:12px;background:#fff1f2;color:#9f1239;border-radius:6px;margin-bottom:16px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px}td,th{text-align:left;padding:12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}#notice{color:#166534;font-size:13px;margin-bottom:12px} @media(max-width:900px){.layout{flex-direction:column;padding:12px}aside{width:100%}.calendar{max-width:300px}.fields{grid-template-columns:1fr}.wide{grid-column:auto}.toolbar{padding:12px}header{padding:16px}.legend{padding:12px}}
-
-.slot{position:absolute;left:0;right:0;width:100%;border:0;border-bottom:1px solid #e5eaf1;background:transparent;cursor:pointer;transition:background-color .18s ease;padding:0;}
-.slot:hover,.slot:focus-visible{background:#dbeafe;}
-.slot:focus-visible{outline:2px solid #2563eb;outline-offset:-2px;}
-.event{z-index:1;}
-
-.context-menu{position:fixed;z-index:50;min-width:230px;background:#fff;border:1px solid #aebed0;border-top:3px solid #173a60;border-radius:5px;box-shadow:0 8px 24px #10243b40;padding:4px;}
-.context-menu[hidden]{display:none}.context-menu button{display:block;width:100%;text-align:left;background:white;border:0;padding:11px 14px;color:#243347;font-size:13px;border-radius:3px}.context-menu button:hover,.context-menu button:focus-visible{background:#e8f0f8}.context-menu .danger{color:#b91c1c}
-
-[hidden]{display:none!important}
-.login-screen{min-height:100dvh;box-sizing:border-box;display:grid;place-items:center;padding:32px 20px;background:radial-gradient(ellipse at top,#24547e 0,#102e50 60%,#091d35 100%)}
-.login-card{box-sizing:border-box;width:min(440px,100%);padding:36px;background:#fff;border-top:5px solid #bd9b59;border-radius:10px;box-shadow:0 24px 70px #0005}
-.login-brand{text-align:center}.institutional-crest{width:88px;height:104px;display:block;margin:0 auto 18px}
-.login-brand .institution{color:#173a60;font-size:12px;letter-spacing:1.5px;font-weight:bold}.login-brand h1{font-size:22px;line-height:1.35;color:#173a60;margin:10px 0}.login-brand p{font-size:14px;color:#64748b}
-#login-form{padding:18px 0 0;display:grid;gap:18px}#login-form label{font-size:13px}#login-form input{padding:12px}#login-form button{padding:13px;font-weight:bold}#login-error{margin:0}.demo-credentials{font-size:12px;line-height:1.6;background:#f1f5f9;border:1px solid #d8e0ea;padding:12px;border-radius:6px;color:#42556b}.login-footer{text-align:center;font-size:11px;color:#64748b;margin:20px 0 0}
-.header-row,.session-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.session-controls{font-size:13px}.session-controls .btn{background:transparent;color:white;border-color:#7890a9}
-input:focus-visible{outline:3px solid #38bdf8;outline-offset:2px}
-@media(max-width:480px){.login-card{padding:26px 22px}.session-controls{width:100%;justify-content:space-between}}
+:root{font-family:Arial,Helvetica,sans-serif;color:#142a41;background:#edf1f5;--navy:#0B2545;--wine:#8B0000}*{box-sizing:border-box}body{margin:0}[hidden]{display:none!important}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #0079bd;outline-offset:3px}button{border:1px solid #acb9c8;border-radius:5px;padding:10px 16px;background:white;color:var(--navy)}header{background:var(--navy);color:white;border-bottom:6px solid var(--wine);padding:22px 30px;display:flex;align-items:center;gap:22px}.crest{width:74px;height:88px;flex-shrink:0}.identity{flex:1}.identity p{margin:0 0 10px;font-size:15px;letter-spacing:1.8px;line-height:1.5}h1{font-size:clamp(25px,2.2vw,44px);margin:0;letter-spacing:1px}.header-right{text-align:right}.clock{font-size:clamp(30px,3vw,54px);font-weight:700;font-variant-numeric:tabular-nums}.date{font-size:16px;margin:5px 0 12px}.manage{background:transparent;border-color:#8ca0b8;color:white;font-size:13px;padding:7px 12px}.toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 30px;background:white;border-bottom:1px solid #cbd5df}.toolbar label{display:flex;align-items:center;gap:8px;font-size:15px}input,select,textarea{border:1px solid #a5b4c5;border-radius:4px;padding:10px;background:white;min-width:0;color:#142a41}.summary{margin-right:auto;font-weight:bold;font-size:20px}.wine{background:var(--wine);color:white;border-color:var(--wine)}main{padding:22px 30px}.table-shell{overflow-x:auto;background:white;border:1px solid #c5d0db;border-radius:6px}table{border-collapse:collapse;width:100%;table-layout:fixed;min-width:1450px}th{background:var(--navy);color:white;text-align:left;font-size:13px;letter-spacing:.3px;padding:16px 10px;border-right:1px solid #ffffff26}td{padding:16px 10px;font-size:clamp(15px,1.03vw,22px);line-height:1.45;border-bottom:1px solid #ced8e2;overflow-wrap:anywhere;vertical-align:middle}tbody tr:nth-child(even){background:#f0f4f8}tbody tr:last-child td{border-bottom:0}.time{display:inline-block;background:var(--navy);color:white;padding:8px 10px;font-size:clamp(20px,1.45vw,30px);font-weight:bold;border-radius:5px;white-space:nowrap}.end{display:block;color:#53677d;font-size:13px;margin-top:5px}.case{font-weight:bold;font-size:.92em}.badge{display:inline-flex;align-items:center;gap:6px;border-radius:5px;padding:8px 9px;font-size:.85em;font-weight:bold}.pending{background:#ffdf75;color:#624600}.live{background:#b9eacb;color:#075c2b}.live:before{content:'';width:9px;height:9px;border-radius:50%;background:#098444;animation:pulse 1.6s infinite}.done{background:#cce0fb;color:#133f80}.rescheduled{background:#ffd9dc;color:#8B0000}@keyframes pulse{50%{box-shadow:0 0 0 5px #09844430;opacity:.6}}.pagination{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:18px;font-size:16px}.pages{display:flex;align-items:center;gap:14px}footer{padding:18px 30px;color:#52667c;font-size:14px;display:flex;justify-content:space-between;gap:20px;border-top:1px solid #cbd5df}.notice{padding:12px 0;color:#8B0000;font-weight:bold}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:14px}.modal{position:fixed;inset:0;z-index:100;background:#07172bd9;display:grid;place-items:center;padding:20px}.dialog{width:min(1100px,100%);max-height:92dvh;overflow:auto;background:white;border-radius:8px;box-shadow:0 20px 80px #0006}.dialog.small{max-width:440px}.dialog-head{background:var(--navy);color:white;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px}.dialog-head h2{margin:0;font-size:21px}.close{background:transparent;color:white;border:0;font-size:27px;padding:0 5px}.dialog-body{padding:24px}form{display:grid;gap:16px}.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}form label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:bold}.actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}.error{background:#fff0f0;color:#8B0000;padding:12px;border-radius:4px}.hint{font-size:13px;line-height:1.6;color:#52667c}.management-list{display:grid;gap:8px;margin:18px 0;max-height:240px;overflow:auto}.management-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px;background:#edf1f5}.management-row span{font-size:14px}.management-row button{padding:7px 12px}.empty{text-align:center;padding:70px 20px;font-size:24px}.admin-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:16px}@media(min-width:2200px){th{font-size:19px}td{padding:26px 12px}}@media(max-width:950px){header{flex-wrap:wrap;padding:18px}.header-right{text-align:left;display:flex;gap:18px;align-items:center;flex-wrap:wrap;width:100%}.clock{font-size:32px}.date{margin:0}.toolbar,main,footer{padding:16px}.fields{grid-template-columns:1fr 1fr}.identity p{font-size:12px}.crest{width:55px;height:68px}.pagination,footer{flex-wrap:wrap}}@media(max-width:600px){.fields{grid-template-columns:1fr}.dialog-body{padding:16px}.summary{width:100%}}@media(prefers-reduced-motion:reduce){.live:before{animation:none}}@media print{.toolbar,.manage,.pagination,.modal{display:none!important}table{min-width:0}td,th{font-size:9px;padding:5px}header{color:black;background:white}.clock{font-size:20px}}
 </style>
 </head>
 <body>
-<section id="login-screen" class="login-screen" aria-labelledby="login-title">
- <div class="login-card">
-  <div class="login-brand">
-   <svg class="institutional-crest" viewBox="0 0 100 118" role="img" aria-labelledby="crest-title"><title id="crest-title">Escudo de la justicia</title><path d="M10 12 Q50 0 90 12 V61 Q90 91 50 111 Q10 91 10 61Z" fill="#173a60" stroke="#bd9b59" stroke-width="4"/><path d="M21 23 Q50 14 79 23 V60 Q79 83 50 99 Q21 83 21 60Z" fill="none" stroke="#bd9b59"/><g stroke="#e0c27e" stroke-width="3" fill="none" stroke-linecap="round"><path d="M50 30V79M33 82H67M50 38L28 44M50 38L72 44M28 44L19 62H37ZM72 44L63 62H81Z"/><path d="M19 62Q28 76 37 62M63 62Q72 76 81 62"/></g><circle cx="50" cy="28" r="4" fill="#e0c27e"/></svg>
-   <div class="institution">PODER JUDICIAL DEL PERÚ</div>
-   <h1 id="login-title">Corte Superior de Justicia de Lima</h1>
-   <p>Agenda Judicial Electrónica · Acceso institucional</p>
-  </div>
-  <form id="login-form">
-   <div id="login-error" class="alert" role="alert" hidden></div>
-   <label for="login-user">Usuario<input id="login-user" name="username" autocomplete="username" required value="admin" autocapitalize="none" spellcheck="false"></label>
-   <label for="login-password">Clave<input id="login-password" name="password" type="password" autocomplete="current-password" required value="Lima2026!"></label>
-   <button class="btn primary" type="submit">Iniciar sesión</button>
-   <div class="demo-credentials">Credenciales de prueba: <strong>admin</strong> / <strong>Lima2026!</strong><br>Acceso de demostración local en este navegador.</div>
-  </form>
-  <p class="login-footer">Corte Superior de Justicia de Lima · SIJ</p>
- </div>
-</section>
-<div id="agenda-app" hidden inert>
-
-<header><div class="header-row"><div><div class="text-xs tracking-widest opacity-70 mb-1">PODER JUDICIAL · SIJ</div><h1 class="text-xl font-semibold">Agenda Judicial Electrónica</h1></div><div class="session-controls"><span>Usuario: <strong id="session-user"></strong></span><button class="btn" id="logout" type="button">Cerrar sesión</button></div></div><nav aria-label="Menú principal"><button class="btn" id="add">＋ Agendar</button><button class="btn" id="activities">Actividades</button><button class="btn" id="report">Reporte ↓</button></nav></header>
-<section class="toolbar" aria-label="Filtros de agenda">
-<label>Sede<select id="site"><option>Sede Central</option><option>Sede Iquitos</option></select></label>
-<label>Especialidad<select id="specialty"><option>Penal</option></select></label>
-<label>Órgano<select id="organ"><option value="Investigación Preparatoria">Juzgados de Investigación Preparatoria (JIP)</option><option value="Juzgado Unipersonal">Juzgados Penales Unipersonales (JUP)</option></select></label>
-<label>Fecha<input id="date" type="date" required></label>
-<label>Escala<select id="scale"><option value="15">15 min</option><option value="30">30 min</option><option value="60">60 min</option></select></label>
-<button class="btn" id="today">Hoy</button></section>
-<div class="legend"><span><i class="dot" style="background:#22c55e"></i>Pendiente</span><span><i class="dot" style="background:#3b82f6"></i>Atendida</span><span><i class="dot" style="background:#eab308"></i>Caducada</span><span><i class="dot" style="background:#ef4444"></i>Anulada</span><span class="muted">Los horarios se muestran en hora local de la sede.</span></div>
-<div class="layout"><aside><section class="card"><div class="flex items-center justify-between"><button class="btn" id="prev" aria-label="Mes anterior">‹</button><strong id="month" class="text-sm"></strong><button class="btn" id="next" aria-label="Mes siguiente">›</button></div><div id="calendar" class="calendar"></div></section><section class="card mt-4"><div class="muted">AUDIENCIAS DEL DÍA</div><div id="count" class="text-3xl font-semibold mt-2">0</div><p class="muted mt-3">Selecciona una fecha para consultar la agenda. Pulsa una audiencia para ver sus datos y actualizar su estado.</p></section></aside>
-<main class="agenda"><div class="flex justify-between items-center mb-3 gap-3"><div><h2 id="heading" class="font-semibold text-lg"></h2><p class="muted">Programación de salas · 07:00 a 20:00 · Clic derecho para acciones</p></div><span class="muted">Cálculo de cruces en tiempo real</span></div><div id="notice" role="status"></div><div class="scroll"><div class="grid-head"><div>HORA</div><div>SALA_01_JIP</div><div>SALA_02_JIP</div><div>SALA_03_JIP</div><div>SALA_04_JIP</div><div>SALA_05_JIP</div></div><div id="timeline" class="timeline"></div></div></main></div>
-<div id="modal" class="modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="dialog-head"><h2 id="modal-title">Búsqueda y Registro de Audiencia</h2><button class="close" id="close" aria-label="Cerrar">×</button></div><form id="form"><div id="error" class="alert" role="alert" hidden></div><div class="fields">
-<label class="wide">Número de Expediente<input name="case" required pattern="[0-9]{5}-[0-9]{4}-[0-9]-JR-PE-[0-9]{2}" placeholder="00001-2026-1-JR-PE-01" title="Formato XXXXX-AAAA-I-JR-PE-NN"></label>
-<label>Juzgado / Dependencia<select name="court"><option>1.º Juzgado de Investigación Preparatoria</option><option>2.º Juzgado de Investigación Preparatoria</option><option>Juzgado Penal Unipersonal</option></select></label>
-<label>Tipo de Audiencia<select name="type"><option>Prueba Anticipada</option><option>Control de Acusación</option><option>Prisión Preventiva</option></select></label>
-<label>Sala de Audiencia<select name="room" id="rooms"></select></label><label>Delito<input name="crime" required placeholder="Descripción del delito"></label>
-<label>Fecha<input name="date" type="date" required></label><label>Estado<select name="status"><option>Pendiente</option><option>Atendida</option><option>Caducada</option><option>Anulada</option></select></label>
-<label>Hora Inicio<input name="start" type="time" min="07:00" max="19:59" required></label><label>Hora Fin<input name="end" type="time" min="07:01" max="20:00" required></label>
-<label>Juez<select name="judge"><option>Dra. María Torres</option><option>Dr. José Ramírez</option><option>Dra. Elena Ríos</option></select></label>
-<label>Especialista de Audiencia<select name="specialist"><option>Ana López</option><option>Carlos Medina</option><option>Lucía Díaz</option></select></label>
-</div><p class="muted mt-4">Se verifican cruces de sala, juez y especialista entre todas las sedes y órganos. Las audiencias anuladas no reservan recursos.</p><div class="actions"><button type="button" class="btn" id="cancel">Cancelar</button><button type="submit" class="btn primary">Guardar audiencia</button></div></form></section></div>
-<div id="list-modal" class="modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="list-title"><div class="dialog-head"><h2 id="list-title">Actividades de la fecha seleccionada</h2><button class="close" id="close-list" aria-label="Cerrar actividades">×</button></div><div class="p-5 table-wrap" id="list"></div></section></div>
-<div id="context-menu" class="context-menu" role="menu" aria-label="Acciones de la agenda" hidden></div>
-</div>
+<header>
+<svg class="crest" viewBox="0 0 100 118" role="img" aria-labelledby="crest-title"><title id="crest-title">Emblema de justicia</title><path d="M10 12Q50 0 90 12V61Q90 91 50 111Q10 91 10 61Z" fill="#0B2545" stroke="#d7ba75" stroke-width="4"/><path d="M21 23Q50 14 79 23V60Q79 83 50 99Q21 83 21 60Z" fill="none" stroke="#d7ba75"/><g stroke="#e0c27e" stroke-width="3" fill="none" stroke-linecap="round"><path d="M50 30V79M33 82H67M50 38L28 44M50 38L72 44M28 44L19 62H37ZM72 44L63 62H81Z"/><path d="M19 62Q28 76 37 62M63 62Q72 76 81 62"/></g><circle cx="50" cy="28" r="4" fill="#e0c27e"/></svg>
+<div class="identity"><p>PODER JUDICIAL DEL PERÚ<br>CORTE SUPERIOR DE JUSTICIA DE LIMA</p><h1>ROL DE AUDIENCIAS PROGRAMADAS</h1></div>
+<div class="header-right"><div id="clock" class="clock" aria-label="Hora peruana"></div><div id="live-date" class="date"></div><button id="manage" class="manage">Gestión / Login</button></div>
+</header>
+<section class="toolbar" aria-label="Controles de cartelera"><div id="summary" class="summary"></div><label>Fecha <input type="date" id="date" required></label><button id="today">Hoy</button><label><input type="checkbox" id="auto" checked> Rotar cada 15 s</label><button id="fullscreen" class="wine">Pantalla Completa</button></section>
+<main><div id="notice" class="notice" role="status" hidden></div><div class="table-shell"><table aria-label="Rol de audiencias"><colgroup><col style="width:7%"><col style="width:11%"><col style="width:9%"><col style="width:8%"><col style="width:10%"><col style="width:8%"><col style="width:9%"><col style="width:9%"><col style="width:9%"><col style="width:10%"><col style="width:10%"></colgroup><thead><tr><th>HORA</th><th>EXPEDIENTE</th><th>JUZGADO / SALA</th><th>JUEZ</th><th>AUDIENCIA</th><th>DELITO</th><th>IMPUTADO(S)</th><th>AGRAVIADO(S)</th><th>ESPECIALISTA DE AUDIENCIA</th><th>SALA / MODALIDAD</th><th>ESTADO</th></tr></thead><tbody id="board"></tbody></table></div><div class="pagination"><div class="legend"><span class="badge pending">Pendiente</span><span class="badge live">En Curso</span><span class="badge done">Concluida</span><span class="badge rescheduled">Reprogramada</span></div><div class="pages"><button id="prev" aria-label="Bloque anterior">‹</button><span id="page" aria-live="polite"></span><button id="next" aria-label="Bloque siguiente">›</button></div></div></main>
+<footer><span>Servicio de información de audiencias · Hora oficial de referencia: Perú (UTC−5)</span><span id="source-note">Datos almacenados en este navegador</span></footer>
+<div id="login-modal" class="modal" hidden><section class="dialog small" role="dialog" aria-modal="true" aria-labelledby="login-title"><div class="dialog-head"><h2 id="login-title">Acceso de gestión</h2><button class="close" data-close aria-label="Cerrar">×</button></div><div class="dialog-body"><form id="login-form"><div id="login-error" class="error" role="alert" hidden></div><label>Usuario<input name="username" value="admin" autocomplete="username" required></label><label>Clave<input name="password" type="password" value="Lima2026!" autocomplete="current-password" required></label><button class="wine" type="submit">Iniciar sesión</button><p class="hint">Acceso de prueba: admin / Lima2026!<br>Gestión local de la cartelera en este navegador.</p></form></div></section></div>
+<div id="management-modal" class="modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="management-title"><div class="dialog-head"><h2 id="management-title">Gestión de audiencias</h2><button class="close" data-close aria-label="Cerrar">×</button></div><div class="dialog-body"><div class="admin-bar"><strong>Administrador · Corte Superior de Justicia de Lima</strong><div><button id="new">＋ Nueva audiencia</button> <button id="logout">Cerrar sesión</button></div></div><div class="hint">Audiencias de la fecha seleccionada. Los cambios se reflejan de inmediato en la cartelera y en otras pestañas de este navegador.</div><div id="management-list" class="management-list"></div><h3 id="form-title">Nueva audiencia</h3><form id="hearing-form"><div id="form-error" class="error" role="alert" hidden></div><div class="fields"><label>Fecha<input name="date" type="date" required></label><label>Hora de inicio<input name="start" type="time" min="07:00" max="23:58" required></label><label>Hora de fin<input name="end" type="time" min="07:01" max="23:59" required></label><label>Expediente<input name="case" required maxlength="80" placeholder="00001-2026-1-JR-PE-01"></label><label>Juzgado / Sala<input name="court" required maxlength="140"></label><label>Juez<input name="judge" required maxlength="120"></label><label>Tipo de audiencia<input name="type" required maxlength="120"></label><label>Delito<input name="crime" required maxlength="140"></label><label>Imputado(s)<input name="defendants" required maxlength="250"></label><label>Agraviado(s)<input name="victims" required maxlength="250"></label><label>Especialista de audiencia<input name="specialist" required maxlength="120"></label><label>Sala<input name="room" required maxlength="100"></label><label>Modalidad<select name="modality"><option>Presencial</option><option>Virtual</option><option>Mixta</option></select></label><label>Estado<select name="status"><option>Pendiente</option><option>En Curso</option><option>Concluida</option><option>Reprogramada</option></select></label></div><div class="actions"><button type="button" id="reset-form">Limpiar / Nueva</button><button type="submit" class="wine">Guardar audiencia</button></div></form><p class="hint">Se verifican cruces de sala, juez y especialista. Las audiencias reprogramadas no reservan recursos. Los registros anteriores se conservan.</p></div></section></div>
 <script>
-const $=s=>document.querySelector(s);
-const roomsFor=organ=>Array.from({length:5},(_,i)=>`SALA_0${i+1}_${organ==='Juzgado Unipersonal'?'JUP':'JIP'}`);
-const courtsFor=organ=>organ==='Juzgado Unipersonal'?['1.º Juzgado Penal Unipersonal','2.º Juzgado Penal Unipersonal']:['1.º Juzgado de Investigación Preparatoria','2.º Juzgado de Investigación Preparatoria'];
-const rooms=Array.from({length:5},(_,i)=>`SALA_0${i+1}_JIP`);
-const colors={Pendiente:['#22c55e','#ecfdf5'],Atendida:['#3b82f6','#eff6ff'],Caducada:['#eab308','#fefce8'],Anulada:['#ef4444','#fef2f2']};
-const localDate=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-const today=localDate(new Date());
-const minutes=t=>Number(t.slice(0,2))*60+Number(t.slice(3,5));
-const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let month=new Date(today+'T12:00:00'),editing=null,previousFocus;
-const storageKey='sij-agenda-demo-v1';
-const seed=[['00001','Prisión Preventiva',0,'08:00','09:00','Pendiente'],['00002','Control de Acusación',1,'09:00','10:30','Atendida'],['00003','Prueba Anticipada',2,'11:00','12:00','Caducada'],['00004','Prisión Preventiva',3,'14:00','15:00','Anulada']].map((x,i)=>({id:crypto.randomUUID(),case:`${x[0]}-${today.slice(0,4)}-1-JR-PE-01`,type:x[1],room:rooms[x[2]],start:x[3],end:x[4],status:x[5],date:today,site:'Sede Central',organ:'Investigación Preparatoria',court:'1.º Juzgado de Investigación Preparatoria',crime:'Delito de ejemplo',judge:['Dra. María Torres','Dr. José Ramírez','Dra. Elena Ríos'][i%3],specialist:['Ana López','Carlos Medina','Lucía Díaz'][i%3]}));
-let events=[];
-function readStoredEvents(){
- const raw=localStorage.getItem(storageKey);
- if(raw===null)return null;
- const saved=JSON.parse(raw);
- if(!Array.isArray(saved)||!saved.every(e=>e&&typeof e.id==='string'&&e.status in colors&&typeof e.date==='string'&&typeof e.start==='string'&&typeof e.end==='string'&&typeof e.room==='string'))throw new Error('Los datos guardados no son válidos. No se han sobrescrito.');
- return saved;
-}
-function loadEvents(){
- try{
-  const saved=readStoredEvents();
-  if(saved===null){localStorage.setItem(storageKey,JSON.stringify(seed));events=seed;}
-  else events=saved;
-  render();
- }catch(error){$('#notice').textContent='No se pudo cargar el almacenamiento local: '+error.message;}
-}
-function saveEvent(candidate){
- const item=candidate.kind==='reservation'?{...candidate,case:'Reserva de sala',court:'Reserva',type:'Bloqueo',crime:'Reserva',judge:'Sin asignar',specialist:'Sin asignar'}:candidate;
- if(!item.start||!item.end||minutes(item.start)<420||minutes(item.end)>1200||minutes(item.end)<=minutes(item.start))throw new Error('El horario debe estar entre 07:00 y 20:00 y el fin debe ser posterior al inicio.');
- const current=readStoredEvents()??events;
- const found=conflict(item,current);
- if(found)throw new Error(`Cruce de horario con ${found.case} (${found.start}–${found.end}): sala, juez o especialista ocupado.`);
- const updated=current.filter(e=>e.id!==item.id).concat(item);
- try{localStorage.setItem(storageKey,JSON.stringify(updated));}catch{throw new Error('No se pudo guardar. Comprueba el espacio disponible y los permisos de almacenamiento del navegador.');}
- events=updated;
-}
-window.addEventListener('storage',event=>{if(event.key===storageKey)loadEvents();});
-$('#date').value=today;
-$('#rooms').innerHTML=rooms.map(r=>`<option>${r}</option>`).join('');
-function selected(){return events.filter(e=>!(e.kind==='reservation'&&e.status==='Anulada')&&e.date===$('#date').value&&e.site===$('#site').value&&e.organ===$('#organ').value).sort((a,b)=>a.start.localeCompare(b.start));}
-function renderCalendar(){
- const year=month.getFullYear(),m=month.getMonth();$('#month').textContent=month.toLocaleDateString('es-PE',{month:'long',year:'numeric'});
- const offset=(new Date(year,m,1).getDay()+6)%7,days=new Date(year,m+1,0).getDate();
- $('#calendar').innerHTML=['L','M','M','J','V','S','D'].map(d=>`<span class="muted">${d}</span>`).join('')+'<span></span>'.repeat(offset)+Array.from({length:days},(_,i)=>{const date=localDate(new Date(year,m,i+1));return `<button data-date="${date}" aria-label="${date}" ${date===$('#date').value?'aria-current="date" class="selected"':''}>${i+1}</button>`;}).join('');
-}
-const timeLabel=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
-function emptySlots(room,items,scale,ratio){
- let html='';
- for(let start=420;start<1200;start+=scale){
-  const end=Math.min(start+scale,1200);
-  const occupied=items.some(e=>(e.room===room||(e.organ==='Juzgado Unipersonal'&&e.room.replace(/_JIP$/,'_JUP')===room))&&minutes(e.start)<end&&minutes(e.end)>start);
-  if(!occupied)html+=`<button type="button" class="slot" data-room="${room}" data-start="${timeLabel(start)}" style="top:${(start-420)*ratio}px;height:${(end-start)*ratio}px" aria-label="Agendar: ${room}, ${$('#date').value}, ${timeLabel(start)}"></button>`;
- }
- return html;
-}
-function openSlot(room,start){
- openEvent();
- const fields=$('#form').elements;
- fields.room.value=room;fields.start.value=start;fields.end.value=timeLabel(minutes(start)+45);
- if(minutes(start)+45>1200){$('#error').textContent='La duración predeterminada de 45 minutos supera las 20:00. Ajusta la hora de fin antes de guardar.';$('#error').hidden=false;}
-}
-function render(){
- if(typeof contextMenu!=='undefined')hideContext();
- const date=$('#date').value;if(!date)return;
- $('#heading').textContent=new Date(date+'T12:00:00').toLocaleDateString('es-PE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
- const activeRooms=roomsFor($('#organ').value);
- $('.grid-head').innerHTML='<div>HORA</div>'+activeRooms.map(r=>`<div>${r}</div>`).join('');
- const scale=Number($('#scale').value),ratio=36/scale,height=780*ratio,items=selected();$('#count').textContent=items.length;
- $('#timeline').style.height=height+'px';
- let hours='';for(let m=420;m<1200;m+=scale)hours+=`<div class="hour" style="top:${(m-420)*ratio}px">${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}</div>`;
- $('#timeline').innerHTML=`<div class="hours">${hours}</div>`+activeRooms.map(room=>`<div class="lane">${emptySlots(room,items,scale,ratio)}${items.filter(e=>e.room===room||(e.organ==='Juzgado Unipersonal'&&e.room.replace(/_JIP$/,'_JUP')===room)).map(e=>{const c=e.kind==='reservation'?['#64748b','#e2e8f0']:colors[e.status];return `<button class="event" data-id="${escapeHTML(e.id)}" style="top:${(minutes(e.start)-420)*ratio}px;height:${Math.max(24,(minutes(e.end)-minutes(e.start))*ratio-3)}px;--state:${c[0]};--tint:${c[1]}" title="${escapeHTML(e.case+' · '+e.type+' · '+e.start+'–'+e.end+' · '+e.status)}"><strong>${escapeHTML(e.case)}</strong><span>${escapeHTML(e.type)}</span><span>${escapeHTML(e.start)} – ${escapeHTML(e.end)} · ${e.status}</span></button>`;}).join('')}</div>`).join('');renderCalendar();
-}
-function openEvent(event){previousFocus=document.activeElement;editing=event?.id||null;$('#form').reset();const organ=event?.organ||$('#organ').value;const availableRooms=roomsFor(organ);if(event&&!availableRooms.includes(event.room))availableRooms.push(event.room);$('#rooms').innerHTML=availableRooms.map(r=>`<option>${escapeHTML(r)}</option>`).join('');const courts=courtsFor(organ);if(event&&!courts.includes(event.court))courts.push(event.court);$('#form').elements.court.innerHTML=courts.map(c=>`<option>${escapeHTML(c)}</option>`).join('');$('#error').hidden=true;$('#modal-title').textContent=event?'Detalle y actualización de Audiencia':'Búsqueda y Registro de Audiencia';$('#form').elements.date.value=$('#date').value;if(event)for(const [k,v]of Object.entries(event)){const field=$('#form').elements.namedItem(k);if(field)field.value=v;}$('#modal').hidden=false;$('#form').elements.case.focus();}
-function closeModal(id){$(id).hidden=true;previousFocus?.focus();}
-function conflict(candidate,all=events){if(candidate.status==='Anulada')return null;return all.find(e=>e.id!==candidate.id&&e.status!=='Anulada'&&e.date===candidate.date&&minutes(candidate.start)<minutes(e.end)&&minutes(candidate.end)>minutes(e.start)&&((e.site===candidate.site&&e.room===candidate.room)||(e.kind!=='reservation'&&candidate.kind!=='reservation'&&(e.judge===candidate.judge||e.specialist===candidate.specialist))));}
-$('#form').addEventListener('submit',e=>{e.preventDefault();const candidate=Object.fromEntries(new FormData(e.target));candidate.id=editing||crypto.randomUUID();const old=events.find(x=>x.id===editing);candidate.site=old?.site||$('#site').value;candidate.organ=old?.organ||$('#organ').value;let message='';if(minutes(candidate.end)<=minutes(candidate.start))message='La hora fin debe ser posterior a la hora inicio.';else if(minutes(candidate.start)<420||minutes(candidate.end)>1200)message='El horario permitido es de 07:00 a 20:00.';else{const found=conflict(candidate);if(found)message=`Cruce de horario con ${found.case} (${found.start}–${found.end}): sala, juez o especialista ocupado.`;}
- if(message){$('#error').textContent=message;$('#error').hidden=false;return;}
- const saveButton=e.target.querySelector('[type="submit"]');saveButton.disabled=true;
- try{saveEvent(candidate);}catch(error){$('#error').textContent=error.message;$('#error').hidden=false;return;}finally{saveButton.disabled=false;}
- $('#date').value=candidate.date;month=new Date(candidate.date+'T12:00:00');closeModal('#modal');$('#notice').textContent='Audiencia guardada correctamente en este navegador.';render();});
-$('#add').onclick=()=>openEvent();$('#close').onclick=$('#cancel').onclick=()=>closeModal('#modal');
-$('#timeline').onclick=e=>{const button=e.target.closest('[data-id]');if(button){const item=events.find(x=>x.id===button.dataset.id);if(item.kind!=='reservation')openEvent(item);}};
-const contextMenu=$('#context-menu');
-let contextTarget=null;
-function hideContext(){contextMenu.hidden=true;}
-function saveContext(item){
- try{saveEvent(item);render();$('#notice').textContent='Cambios guardados en este navegador.';}
- catch(error){$('#notice').textContent=error.message;}
-}
-function showContext(event){
- const slot=event.target.closest('.slot'),block=event.target.closest('[data-id]');
- event.preventDefault();hideContext();if(!slot&&!block)return;
- contextTarget=event.target;
- const item=block?events.find(e=>e.id===block.dataset.id):null;
- const actions=item?(item.kind==='reservation'?[
-  ['Liberar reserva',()=>saveContext({...item,status:'Anulada'})]
- ]:[
-  ['Ver / Editar Audiencia',()=>openEvent(item)],
-  ['Cambiar Estado',()=>{openEvent(item);$('#form').elements.status.focus();}],
-  ['Anular Audiencia',()=>saveContext({...item,status:'Anulada'}),'danger']
- ]):[
-  ['📅 Agendar Audiencia',()=>openSlot(slot.dataset.room,slot.dataset.start)],
-  ['🚫 Reservar / Bloquear Sala',()=>saveContext({id:crypto.randomUUID(),kind:'reservation',room:slot.dataset.room,date:$('#date').value,start:slot.dataset.start,end:timeLabel(Math.min(minutes(slot.dataset.start)+Number($('#scale').value),1200)),site:$('#site').value,organ:$('#organ').value,status:'Pendiente'})],
- ];
- actions.push(['❌ Cancelar',()=>contextTarget?.focus()]);
- contextMenu.replaceChildren();
- for(const [label,action,style]of actions){const button=document.createElement('button');button.type='button';button.role='menuitem';button.textContent=label;if(style)button.className=style;button.onclick=()=>{hideContext();action();};contextMenu.append(button);}
- contextMenu.hidden=false;contextMenu.style.left=event.clientX+'px';contextMenu.style.top=event.clientY+'px';
- // Keep the menu accessible at viewport edges.
- const rect=contextMenu.getBoundingClientRect();contextMenu.style.left=Math.max(0,Math.min(event.clientX,innerWidth-rect.width))+'px';contextMenu.style.top=Math.max(0,Math.min(event.clientY,innerHeight-rect.height))+'px';
- contextMenu.querySelector('button').focus();
-}
-$('#timeline').addEventListener('contextmenu',showContext);
-$('#timeline').addEventListener('keydown',e=>{if(e.key==='ContextMenu'||(e.shiftKey&&e.key==='F10')){const rect=e.target.getBoundingClientRect();showContext({target:e.target,clientX:rect.left,clientY:rect.top,preventDefault:()=>e.preventDefault()});}});
- document.addEventListener('click',e=>{if(!contextMenu.contains(e.target))hideContext();});
- document.addEventListener('keydown',e=>{if(contextMenu.hidden)return;if(e.key==='Escape'){e.preventDefault();hideContext();contextTarget?.focus();}else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const buttons=[...contextMenu.querySelectorAll('button')],index=buttons.indexOf(document.activeElement);buttons[(index+(e.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length].focus();}});
- window.addEventListener('resize',hideContext);document.addEventListener('scroll',hideContext,true);
-$('#calendar').onclick=e=>{const button=e.target.closest('[data-date]');if(button){$('#date').value=button.dataset.date;render();}};
-$('#prev').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()-1,1);renderCalendar();};$('#next').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()+1,1);renderCalendar();};
-for(const id of ['site','organ','scale','date'])$('#'+id).onchange=()=>{if(id==='date'&&$('#date').value)month=new Date($('#date').value+'T12:00:00');render();};
-$('#today').onclick=()=>{$('#date').value=today;month=new Date(today+'T12:00:00');render();};
-$('#activities').onclick=()=>{previousFocus=document.activeElement;$('#list').innerHTML=selected().length?'<table><thead><tr><th>Expediente</th><th>Sala</th><th>Horario</th><th>Estado</th></tr></thead><tbody>'+selected().map(e=>`<tr><td>${escapeHTML(e.case)}</td><td>${e.room}</td><td>${e.start}–${e.end}</td><td>${e.status}</td></tr>`).join('')+'</tbody></table>':'No hay actividades para estos filtros.';$('#list-modal').hidden=false;$('#close-list').focus();};$('#close-list').onclick=()=>closeModal('#list-modal');
-$('#report').onclick=()=>{const fields=['case','date','site','organ','room','type','start','end','status','judge','specialist'];const csv=[['Expediente','Fecha','Sede','Órgano','Sala','Tipo','Inicio','Fin','Estado','Juez','Especialista'],...selected().map(e=>fields.map(k=>e[k]))].map(row=>row.map(v=>'"'+String(v??'').replace(/^[=+@-]/,"'$&").replace(/"/g,'""')+'"').join(';')).join('\r\n');const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=`agenda-${$('#date').value}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
-for(const id of ['#modal','#list-modal'])$(id).addEventListener('click',e=>{if(e.target===$(id))closeModal(id);});
- document.addEventListener('keydown',e=>{const active=!$('#modal').hidden?$('#modal'):!$('#list-modal').hidden?$('#list-modal'):null;if(!active)return;if(e.key==='Escape')closeModal('#'+active.id);if(e.key==='Tab'){const focusable=[...active.querySelectorAll('button,input,select')];const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
-
-const sessionKey='sij-session-demo-v1';
-const demoUser={username:'admin',name:'Administrador'};
-function readSession(){
- try{
-  const session=JSON.parse(localStorage.getItem(sessionKey));
-  return session?.username===demoUser.username&&session?.name===demoUser.name?session:null;
- }catch{return null;}
-}
-function showSession(session,focus=false){
- const signedIn=Boolean(session);
- $('#login-screen').hidden=signedIn;
- $('#agenda-app').hidden=!signedIn;
- $('#agenda-app').inert=!signedIn;
- $('#session-user').textContent=session?.name||'';
- if(!signedIn){
-  hideContext();
-  $('#modal').hidden=true;$('#list-modal').hidden=true;
-  $('#login-password').value='Lima2026!';
- }else{loadEvents();}
- if(focus)(signedIn?$('#logout'):$('#login-user')).focus();
-}
-$('#login-form').addEventListener('submit',event=>{
- event.preventDefault();
- const error=$('#login-error');error.hidden=true;
- if($('#login-user').value.trim()!==demoUser.username||$('#login-password').value!=='Lima2026!'){
-  error.textContent='Usuario o clave incorrectos. Verifica las credenciales de prueba.';error.hidden=false;return;
- }
- try{localStorage.setItem(sessionKey,JSON.stringify(demoUser));}
- catch{error.textContent='No se pudo guardar la sesión. Habilita el almacenamiento local del navegador.';error.hidden=false;return;}
- $('#login-password').value='';
- showSession(demoUser,true);
-});
-$('#logout').onclick=()=>{
- try{localStorage.removeItem(sessionKey);}
- catch{window.alert('No se pudo cerrar la sesión. Revisa los permisos de almacenamiento del navegador.');return;}
- $('#login-error').hidden=true;
- showSession(null,true);
-};
-window.addEventListener('storage',event=>{
- if(event.key===sessionKey||event.key===null)showSession(readSession(),true);
-});
-showSession(readSession());
-
+'use strict';
+const $=s=>document.querySelector(s),storageKey='sij-agenda-demo-v1',sessionKey='sij-session-demo-v1',seedKey='sij-tv-demo-seeded-v1';
+const statuses=['Pendiente','En Curso','Concluida','Reprogramada'],classes=['pending','live','done','rescheduled'];
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const peruDate=(date=new Date())=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Lima',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
+const normalizeStatus=s=>({Atendida:'Concluida',Caducada:'Reprogramada',Anulada:'Reprogramada'}[s]||s);
+const effectiveStatus=e=>normalizeStatus(e.status);
+let events=[],page=0,editing=null,previousFocus=null,storageHealthy=true,followingToday=true,lastToday=peruDate();
+const pageSize=5;
+function notify(message){$('#notice').textContent=message;$('#notice').hidden=!message;}
+function readEvents(){const raw=localStorage.getItem(storageKey);if(raw===null)return [];const value=JSON.parse(raw);if(!Array.isArray(value)||!value.every(e=>e&&typeof e.id==='string'&&typeof e.date==='string'&&/^\d{2}:\d{2}$/.test(e.start)&&/^\d{2}:\d{2}$/.test(e.end)&&statuses.includes(normalizeStatus(e.status))))throw Error('Los datos guardados no son válidos. No se han sobrescrito.');return value;}
+function demoEvents(){const types=['Prisión Preventiva','Control de Acusación','Juicio Oral','Prueba Anticipada','Control de Identidad','Lectura de Sentencia','Comparecencia','Control de Acusación'];return types.map((type,i)=>({id:crypto.randomUUID(),date:peruDate(),start:`${String(8+i).padStart(2,'0')}:00`,end:`${String(8+i).padStart(2,'0')}:45`,case:`${String(101+i).padStart(5,'0')}-${peruDate().slice(0,4)}-1-JR-PE-0${i%5+1}`,court:`${i%5+1}.º Juzgado de Investigación Preparatoria`,judge:['Dra. María Torres','Dr. José Ramírez','Dra. Elena Ríos'][i%3],type,crime:['Robo agravado','Estafa','Lesiones graves','Hurto agravado'][i%4],defendants:`Persona de prueba ${i+1}`,victims:i%2?'El Estado':`Parte agraviada de prueba ${i+1}`,specialist:['Ana López','Carlos Medina','Lucía Díaz'][i%3],room:`SALA_0${i%5+1}_JIP`,modality:i%2?'Virtual':'Presencial',status:statuses[[2,1,0,0,3,0,0,0][i]],site:'Sede Central',organ:'Investigación Preparatoria',demo:true}));}
+function loadEvents(seed=false){try{events=readEvents();if(seed&&!localStorage.getItem(seedKey)){events=events.concat(demoEvents());localStorage.setItem(storageKey,JSON.stringify(events));localStorage.setItem(seedKey,'1');}storageHealthy=true;notify('');}catch(error){storageHealthy=false;notify('Almacenamiento local: '+error.message);}render();}
+function selected(){return events.filter(e=>e.kind!=='reservation'&&e.date===$('#date').value).sort((a,b)=>a.start.localeCompare(b.start)||a.case.localeCompare(b.case));}
+function badge(e){const status=effectiveStatus(e);return `<span class="badge ${classes[statuses.indexOf(status)]}">${esc(status)}</span>`;}
+function render(){const items=selected(),pages=Math.max(1,Math.ceil(items.length/pageSize));page=Math.max(0,Math.min(page,pages-1));$('#summary').textContent=`${items.length} audiencias · ${new Intl.DateTimeFormat('es-PE',{timeZone:'America/Lima',day:'2-digit',month:'long',year:'numeric'}).format(new Date($('#date').value+'T12:00:00-05:00'))}`;$('#board').innerHTML=items.length?items.slice(page*pageSize,(page+1)*pageSize).map(e=>`<tr><td><span class="time">${esc(e.start)}</span><span class="end">hasta ${esc(e.end)}</span></td><td class="case">${esc(e.case)}</td><td>${esc(e.court)}</td><td>${esc(e.judge)}</td><td>${esc(e.type)}</td><td>${esc(e.crime)}</td><td>${esc(e.defendants||'No consignado')}</td><td>${esc(e.victims||'No consignado')}</td><td>${esc(e.specialist)}</td><td>${esc(e.room)}<br><strong>${esc(e.modality||'Presencial')}</strong></td><td>${badge(e)}</td></tr>`).join(''):'<tr><td colspan="11" class="empty">No hay audiencias programadas para esta fecha.</td></tr>';$('#page').textContent=`Bloque ${page+1} de ${pages}`;$('#prev').disabled=$('#next').disabled=pages===1;$('#source-note').textContent=items.some(e=>e.demo)?'Incluye audiencias de prueba · Datos ficticios':'Datos almacenados en este navegador';if(!$('#management-modal').hidden)renderManagement();}
+function changePage(delta){page=(page+delta+Math.max(1,Math.ceil(selected().length/pageSize)))%Math.max(1,Math.ceil(selected().length/pageSize));render();}
+$('#prev').onclick=()=>changePage(-1);$('#next').onclick=()=>changePage(1);
+setInterval(()=>{if($('#auto').checked&&!document.querySelector('.modal:not([hidden])')&&!document.hidden)changePage(1);},15000);
+$('#date').value=peruDate();$('#date').onchange=()=>{if(!$('#date').value){$('#date').value=lastToday;}followingToday=$('#date').value===peruDate();page=0;render();};$('#today').onclick=()=>{followingToday=true;$('#date').value=peruDate();page=0;render();};
+function tick(){const now=new Date();$('#clock').textContent=new Intl.DateTimeFormat('es-PE',{timeZone:'America/Lima',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(now);$('#live-date').textContent=new Intl.DateTimeFormat('es-PE',{timeZone:'America/Lima',weekday:'long',day:'2-digit',month:'long',year:'numeric'}).format(now);const day=peruDate(now);if(day!==lastToday){lastToday=day;if(followingToday){$('#date').value=day;page=0;render();}}}tick();setInterval(tick,1000);
+$('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else throw Error('Este navegador no admite pantalla completa.');}catch(error){notify('Pantalla completa: '+error.message);}};document.addEventListener('fullscreenchange',()=>{$('#fullscreen').textContent=document.fullscreenElement?'Salir de pantalla completa':'Pantalla Completa';});
+function authenticated(){try{const s=JSON.parse(localStorage.getItem(sessionKey));return s?.username==='admin'&&s?.name==='Administrador';}catch{return false;}}
+function openModal(id){previousFocus=document.activeElement;$(id).hidden=false;$(id).querySelector('input,button').focus();}
+function closeModal(modal){modal.hidden=true;previousFocus?.focus();}
+function resetForm(){editing=null;$('#hearing-form').reset();$('#hearing-form').elements.date.value=$('#date').value;$('#form-title').textContent='Nueva audiencia';$('#form-error').hidden=true;}
+function renderManagement(){const list=$('#management-list');list.replaceChildren();for(const e of selected()){const row=document.createElement('div');row.className='management-row';const label=document.createElement('span');label.textContent=`${e.start} · ${e.case} · ${effectiveStatus(e)}`;const button=document.createElement('button');button.textContent='Editar / Estado';button.onclick=()=>{if(!authenticated())return;editing=e.id;const f=$('#hearing-form');f.reset();for(const field of f.elements)if(field.name)field.value=field.name==='status'?effectiveStatus(e):e[field.name]||({defendants:'No consignado',victims:'No consignado',modality:'Presencial'}[field.name]||'');$('#form-title').textContent='Editar audiencia';$('#form-error').hidden=true;f.elements.case.focus();};row.append(label,button);list.append(row);}if(!list.children.length)list.textContent='Sin audiencias para esta fecha.';}
+function openManagement(){resetForm();openModal('#management-modal');renderManagement();}
+$('#manage').onclick=()=>{if(authenticated())openManagement();else{$('#login-error').hidden=true;openModal('#login-modal');}};
+$('#login-form').onsubmit=e=>{e.preventDefault();const f=e.target;try{if(f.elements.username.value.trim()!=='admin'||f.elements.password.value!=='Lima2026!')throw Error('Usuario o clave incorrectos.');localStorage.setItem(sessionKey,JSON.stringify({username:'admin',name:'Administrador'}));closeModal($('#login-modal'));openManagement();}catch(error){$('#login-error').textContent=error.message;$('#login-error').hidden=false;}};
+$('#logout').onclick=()=>{try{localStorage.removeItem(sessionKey);closeModal($('#management-modal'));}catch{notify('No se pudo cerrar la sesión. Revisa el almacenamiento local.');}};
+$('#new').onclick=$('#reset-form').onclick=resetForm;
+function saveEvent(candidate){if(!authenticated())throw Error('Inicia sesión para guardar cambios.');if(!storageHealthy)throw Error('Corrige el problema de almacenamiento antes de guardar.');if(candidate.start<'07:00'||candidate.end<=candidate.start||candidate.end>'23:59')throw Error('El fin debe ser posterior al inicio. Horario permitido: 07:00–23:59.');const current=readEvents();const conflict=current.find(e=>e.id!==candidate.id&&e.date===candidate.date&&effectiveStatus(e)!=='Reprogramada'&&candidate.status!=='Reprogramada'&&candidate.start<e.end&&candidate.end>e.start&&((e.room===candidate.room&&(e.site||'Sede Central')===(candidate.site||'Sede Central'))||(e.kind!=='reservation'&&(e.judge===candidate.judge||e.specialist===candidate.specialist))));if(conflict)throw Error('Cruce de sala, juez o especialista con '+conflict.case+' ('+conflict.start+'–'+conflict.end+').');const updated=current.filter(e=>e.id!==candidate.id).concat(candidate);localStorage.setItem(storageKey,JSON.stringify(updated));events=updated;}
+$('#hearing-form').onsubmit=e=>{e.preventDefault();try{const current=readEvents(),old=current.find(x=>x.id===editing);if(editing&&!old)throw Error('El registro ya no existe. Actualiza la cartelera.');const candidate={...old,...Object.fromEntries(new FormData(e.target)),id:editing||crypto.randomUUID()};for(const key of ['case','court','judge','type','crime','defendants','victims','specialist','room']){candidate[key]=candidate[key].trim();if(!candidate[key])throw Error('Completa todos los campos obligatorios.');}candidate.site=old?.site||'Sede Central';candidate.organ=old?.organ||'Investigación Preparatoria';saveEvent(candidate);$('#date').value=candidate.date;followingToday=candidate.date===peruDate();resetForm();render();$('#form-title').textContent='Audiencia guardada correctamente';}catch(error){$('#form-error').textContent=error.message;$('#form-error').hidden=false;}};
+for(const modal of document.querySelectorAll('.modal')){modal.querySelector('[data-close]').onclick=()=>closeModal(modal);modal.onclick=e=>{if(e.target===modal)closeModal(modal);};}
+document.addEventListener('keydown',e=>{const modal=document.querySelector('.modal:not([hidden])');if(!modal)return;if(e.key==='Escape')closeModal(modal);if(e.key==='Tab'){const fields=[...modal.querySelectorAll('button,input,select')].filter(x=>!x.disabled),first=fields[0],last=fields.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+window.addEventListener('storage',e=>{if(e.key===storageKey||e.key===null)loadEvents();if((e.key===sessionKey||e.key===null)&&!authenticated()&&!$('#management-modal').hidden)closeModal($('#management-modal'));});
+loadEvents(true);
 </script>
-</body></html>
+</body>
+</html>
