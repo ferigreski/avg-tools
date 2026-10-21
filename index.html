@@ -57,7 +57,7 @@ footer{height:100%;min-height:0;padding:4px 24px;gap:12px;display:flex;flex-wrap
 
 /* Banner panorámico de borde a borde, 37% de la pantalla. */
 body{grid-template-rows:37fr 58fr 5fr}
-.institutional-panel{width:100%;height:100%;min-height:0;display:flex;align-items:center;padding:20px 36px 50px;gap:24px;border:0;border-radius:0;background-color:#294158;background-image:linear-gradient(90deg,rgba(7,25,46,.94) 0%,rgba(7,25,46,.82) 35%,rgba(7,25,46,.3) 68%,rgba(7,25,46,.1) 100%),url("https://upload.wikimedia.org/wikipedia/commons/9/98/2017_Lima_-_Edificio_Javier_Alzamora_Valdez_desde_la_plaza_Luis_Alberto_S%C3%A1nchez.jpg");background-size:cover;background-position:center 20%;background-repeat:no-repeat;box-shadow:0 3px 14px #132c4526;isolation:isolate}
+.institutional-panel{width:100%;height:100%;min-height:0;display:flex;align-items:center;padding:20px 36px 50px;gap:24px;border:0;border-radius:0;background-color:#294158;background-image:linear-gradient(90deg,#07192e 0%,#132c45 55%,#294158 100%);box-shadow:0 3px 14px #132c4526;isolation:isolate}
 .institutional-brand{gap:22px;max-width:75%}
 .institutional-panel .pj-logo{width:112px;height:112px;padding:10px;background:#fffffff5;border-radius:9px;box-shadow:0 3px 14px #0002}
 .institutional-panel .identity p{color:#fff;font-size:21px;letter-spacing:1.3px;margin:0 0 7px;text-shadow:0 2px 5px #0008}
@@ -71,6 +71,10 @@ main{padding-top:33px}
 @media(min-width:2400px){.institutional-panel .pj-logo{width:160px;height:160px}.institutional-panel .identity p{font-size:29px}.institutional-panel .identity h1{font-size:44px}.board-title{font-size:30px}.banner-flag{width:140px;height:90px}}
 @media(max-width:1000px){.institutional-brand{max-width:80%;gap:14px}.institutional-panel .pj-logo{width:65px;height:65px;padding:6px}.institutional-panel .identity p{font-size:13px}.institutional-panel .identity h1{font-size:20px}.banner-flag{right:18px;width:58px;height:38px}.board-title{font-size:15px;padding:8px 20px;bottom:-17px}.toolbar{left:20px}.institutional-panel .photo-credit{font-size:6px;right:8px}main{padding-top:26px}}
 @media(max-width:600px){.institutional-panel{padding:10px 12px 45px}.institutional-brand{max-width:85%;gap:8px}.institutional-panel .pj-logo{width:43px;height:43px;padding:4px}.institutional-panel .identity p{font-size:9px}.institutional-panel .identity h1{font-size:13px}.banner-flag{right:10px;top:30%;width:30px;height:20px}.board-title{font-size:12px;padding:7px 16px;bottom:-14px}.toolbar{left:12px;bottom:12px;transform:none}.institutional-panel .photo-credit{bottom:1px;font-size:5px}main{padding-top:22px}}
+
+/* Fotografía completa, ajustada a la altura y fundida en los laterales. */
+.institutional-panel::before{content:"";position:absolute;inset:0 auto 0 50%;height:100%;width:auto;max-width:100%;aspect-ratio:4540 / 3405;transform:translateX(-50%);z-index:-2;background-image:url("https://upload.wikimedia.org/wikipedia/commons/9/98/2017_Lima_-_Edificio_Javier_Alzamora_Valdez_desde_la_plaza_Luis_Alberto_S%C3%A1nchez.jpg");background-size:contain;background-position:center center;background-repeat:no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 18%,#000 82%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 18%,#000 82%,transparent 100%);pointer-events:none}
+.institutional-panel::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,25,46,.68) 0%,rgba(7,25,46,.45) 32%,rgba(7,25,46,.08) 52%,rgba(7,25,46,.15) 75%,rgba(7,25,46,.3) 100%);pointer-events:none}
 </style>
 </head>
 <body>
