@@ -117,10 +117,10 @@ main{padding-top:33px}
 .excel-import{border:1px solid #d5dfe9;border-radius:7px;background:#f5f8fb;padding:16px;margin:0 0 20px}.excel-import h3{margin:0 0 12px;font-size:18px}.excel-drop{display:block;padding:20px;border:2px dashed #8ca6bd;border-radius:6px;background:white;text-align:center;color:#234768;cursor:pointer;font-size:14px}.excel-drop.dragging{border-color:#990000;background:#fff2f2}.excel-drop:focus-visible{outline:3px solid #0079bd;outline-offset:2px}.excel-drop input{display:block;margin:12px auto 0;max-width:100%;font-size:12px}#excel-result{white-space:pre-wrap;font-size:14px;line-height:1.5}.excel-success{padding:12px;background:#e6f6eb;color:#155b2d;border-radius:5px}.live-hearing dl>div:has(dt:first-child){min-width:0}
 .live-hearing .report-emphasis dd{font-weight:700;color:#8b0000}
 
-.toolbar #site-filter{max-width:230px;font-size:11px;padding:5px 7px;background:#fffffff5;color:#243347}
+.toolbar #selectorSede{max-width:230px;font-size:11px;padding:5px 7px;background:#fffffff5;color:#243347}
 @media(min-width:1101px){.toolbar{bottom:55px;flex-wrap:wrap;max-width:60%}.toolbar .summary{flex-basis:100%;margin:0 0 2px}}
-@media(max-width:1100px){.toolbar{bottom:42px;flex-wrap:wrap;max-width:75%}.toolbar #site-filter{max-width:160px;font-size:10px}.toolbar label{gap:5px}}
-@media(max-width:600px){.toolbar{bottom:28px;max-width:95%;gap:5px}.toolbar #site-filter{max-width:125px;font-size:9px}.board-title{font-size:9px}}
+@media(max-width:1100px){.toolbar{bottom:42px;flex-wrap:wrap;max-width:75%}.toolbar #selectorSede{max-width:160px;font-size:10px}.toolbar label{gap:5px}}
+@media(max-width:600px){.toolbar{bottom:28px;max-width:95%;gap:5px}.toolbar #selectorSede{max-width:125px;font-size:9px}.board-title{font-size:9px}}
 </style>
 <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -128,7 +128,7 @@ main{padding-top:33px}
 <header class="institutional-panel"><div class="banner-photo" aria-hidden="true"></div><div class="institutional-brand">
 <svg class="pj-logo" viewBox="0 0 252 234" role="img" aria-labelledby="pj-title"><title id="pj-title">Isotipo del Poder Judicial del Perú</title><defs><g id="pj-quadrant"><path fill-rule="evenodd" d="M0 0H84V80H24V112H0ZM24 20V60H60V20Z"/><path d="M96 0H120V112H36V92H96Z"/></g></defs><use href="#pj-quadrant" fill="#990000"/><use href="#pj-quadrant" x="132" fill="#666666"/><use href="#pj-quadrant" y="122" fill="#666666"/><use href="#pj-quadrant" x="132" y="122" fill="#990000"/></svg>
 <div class="identity"><p>PODER JUDICIAL DEL PERÚ</p><h1>CORTE SUPERIOR<br>DE JUSTICIA DE LIMA</h1></div></div><div class="flag banner-flag" role="img" aria-label="Bandera nacional del Perú"><i></i><i></i><i></i></div><div class="board-title">PROGRAMACIÓN DE AUDIENCIAS - SEDE IQUITOS</div>
-<section class="toolbar" aria-label="Controles de cartelera"><div id="summary" class="summary"></div><label>Sede: <select id="site-filter" aria-label="Sede"><option value="">Todas las Sedes</option></select></label><label>Fecha <input type="date" id="date" required></label><button id="today">Hoy</button></section></header>
+<section class="toolbar" aria-label="Controles de cartelera"><div id="summary" class="summary"></div><label>Sede: <select id="selectorSede" aria-label="Sede"><option value="">[ Ver Todas las Sedes ]</option></select></label><label>Fecha <input type="date" id="date" required></label><button id="today">Hoy</button></section></header>
 
 <main><div id="notice" class="notice" role="status" hidden></div><section id="board" class="fids-layout" aria-label="Tablero de audiencias"><section class="live-panel" aria-labelledby="live-title"><h2 id="live-title"><i class="live-indicator" aria-hidden="true"></i> AUDIENCIAS EN DESARROLLO (EN CURSO) <span id="live-count"></span></h2><div id="live-board" class="live-board"></div></section><section class="upcoming-panel" aria-labelledby="upcoming-title"><h2 id="upcoming-title">🛫 PRÓXIMAS AUDIENCIAS PROGRAMADAS <span id="upcoming-count"></span></h2><div class="departure-labels" aria-hidden="true"><span>HORARIO / SALA</span><span>JUZGADO / EXPEDIENTE / AUDIENCIA</span><span>DELITO / IMPUTADO</span></div><div id="upcoming-board" class="upcoming-board"></div></section></section></main>
 <footer><div class="footer-date"><span class="footer-label">LIMA · PERÚ</span><div id="live-date" class="date"></div><span id="source-note"></span></div><div class="pages"><button id="prev" aria-label="Página anterior">‹</button><div><span id="page" aria-live="polite"></span><div id="page-dots" class="page-dots" aria-hidden="true"></div></div><button id="next" aria-label="Página siguiente">›</button></div><div id="clock" class="clock" aria-label="Hora peruana"></div><div class="tv-controls"><label class="rotation"><input type="checkbox" id="auto" checked> Carrusel - 15 s</label><div><button id="fullscreen" class="manage">⛶ Pantalla Completa</button><button id="manage" class="manage">Administración / Acceso</button></div></div></footer>
@@ -142,11 +142,11 @@ function generarId() {
 
 const $=s=>document.querySelector(s),storageKey='audiencias_iquitos',legacyStorageKey='sij-agenda-demo-v1',sessionKey='sij-session-demo-v1',seedKey='sij-tv-demo-seeded-v1';
 
-const siteStorageKey='sede_activa';
+const siteStorageKey='sede_fija',legacySiteStorageKey='sede_activa';
 const normalizeSite=value=>String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const siteAliases={iquitos:{tokens:['iquitos'],name:'Sede Iquitos'},barreto:{tokens:['barreto'],name:'Edif Anselmo Barreto Leon'},surco:{tokens:['surco'],name:'Sede Surco'},cuadros:{tokens:['cuadros','zavala'],name:'Manuel Cuadros'},zavala:{tokens:['cuadros','zavala'],name:'Manuel Cuadros'},flagrancia:{tokens:['flagrancia'],name:'Unidad de Flagrancia'},victoria:{tokens:['victoria','san luis'],name:'La Victoria - San Luis'}};
 let activeSite='';
-try{const params=new URLSearchParams(location.search);activeSite=params.has('sede')?params.get('sede')||'':localStorage.getItem(siteStorageKey)||'';}catch{}
+try{const params=new URLSearchParams(location.search);activeSite=localStorage.getItem(siteStorageKey)??localStorage.getItem(legacySiteStorageKey)??(params.get('sede')||'');}catch{}
 function resolveSite(request,sites){
  const normalized=normalizeSite(request);
  if(!normalized||['todas','todas las sedes','all'].includes(normalized))return '';
@@ -161,7 +161,7 @@ function siteEvents(){return events.filter(event=>event.kind!=='reservation'&&ma
 function populateSites(){
  const sites=[...new Map(events.filter(e=>e.kind!=='reservation'&&String(e.site||'').trim()).map(e=>[normalizeSite(e.site),String(e.site).trim()])).values()].sort((a,b)=>a.localeCompare(b,'es'));
  activeSite=resolveSite(activeSite,sites);
- const select=$('#site-filter');select.replaceChildren(new Option('Todas las Sedes',''));
+ const select=$('#selectorSede');select.replaceChildren(new Option('[ Ver Todas las Sedes ]',''));
  for(const site of sites)select.add(new Option(site,site));
  if(activeSite&&!sites.includes(activeSite))select.add(new Option(activeSite+' (sin programación)',activeSite));
  select.value=activeSite;
@@ -255,11 +255,10 @@ function safeMeet(value){try{const url=new URL(value);return url.protocol==='htt
 function changePage(delta){page=(page+delta+Math.max(1,Math.ceil(selected().length/pageSize)))%Math.max(1,Math.ceil(selected().length/pageSize));render();}
 $('#prev').onclick=()=>changePage(-1);$('#next').onclick=()=>changePage(1);
 setInterval(()=>{if($('#auto').checked&&!document.querySelector('.modal:not([hidden])')&&!document.hidden)changePage(1);},60000);
-$('#site-filter').onchange=()=>{
- activeSite=$('#site-filter').value;
+$('#selectorSede').onchange=()=>{
+ activeSite=$('#selectorSede').value;
  try{localStorage.setItem(siteStorageKey,activeSite);}catch{notify('No se pudo recordar la sede seleccionada en este navegador.');}
- const url=new URL(location.href);if(activeSite)url.searchParams.set('sede',activeSite);else url.searchParams.delete('sede');
- history.replaceState(null,'',url);page=0;selectAvailableDate(peruDate());updateSiteTitle();render();
+ page=0;selectAvailableDate(peruDate());updateSiteTitle();render();
 };
 $('#date').value=peruDate();$('#date').onchange=()=>{if(!$('#date').value){$('#date').value=lastToday;}followingToday=$('#date').value===peruDate();page=0;render();};$('#today').onclick=()=>{followingToday=true;$('#date').value=peruDate();page=0;render();};
 function tick(){const now=new Date();$('#clock').textContent=new Intl.DateTimeFormat('es-PE',{timeZone:'America/Lima',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true}).format(now).replace(/(\d{2}):(\d{2}):(\d{2})/,'$1 : $2 : $3').replace('a. m.','AM').replace('p. m.','PM');$('#live-date').textContent=new Intl.DateTimeFormat('es-PE',{timeZone:'America/Lima',weekday:'long',day:'2-digit',month:'long',year:'numeric'}).format(now);const day=peruDate(now);if(day!==lastToday){lastToday=day;if(followingToday){$('#date').value=day;page=0;loadEvents(true);}}refreshStatuses();}tick();setInterval(tick,1000);
