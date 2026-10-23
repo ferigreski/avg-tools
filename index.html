@@ -133,7 +133,7 @@ main{padding-top:33px}
 <main><div id="notice" class="notice" role="status" hidden></div><section id="board" class="fids-layout" aria-label="Tablero de audiencias"><section class="live-panel" aria-labelledby="live-title"><h2 id="live-title"><i class="live-indicator" aria-hidden="true"></i> AUDIENCIAS EN DESARROLLO (EN CURSO) <span id="live-count"></span></h2><div id="live-board" class="live-board"></div></section><section class="upcoming-panel" aria-labelledby="upcoming-title"><h2 id="upcoming-title">🛫 PRÓXIMAS AUDIENCIAS PROGRAMADAS <span id="upcoming-count"></span></h2><div class="departure-labels" aria-hidden="true"><span>HORARIO / SALA</span><span>JUZGADO / EXPEDIENTE / AUDIENCIA</span><span>DELITO / IMPUTADO</span></div><div id="upcoming-board" class="upcoming-board"></div></section></section></main>
 <footer><div class="footer-date"><span class="footer-label">LIMA · PERÚ</span><div id="live-date" class="date"></div><span id="source-note"></span></div><div class="pages"><button id="prev" aria-label="Página anterior">‹</button><div><span id="page" aria-live="polite"></span><div id="page-dots" class="page-dots" aria-hidden="true"></div></div><button id="next" aria-label="Página siguiente">›</button></div><div id="clock" class="clock" aria-label="Hora peruana"></div><div class="tv-controls"><label class="rotation"><input type="checkbox" id="auto" checked> Carrusel - 15 s</label><div><button id="fullscreen" class="manage">⛶ Pantalla Completa</button><button id="manage" class="manage">Administración / Acceso</button></div></div></footer>
 <div id="login-modal" class="modal" hidden><section class="dialog small" role="dialog" aria-modal="true" aria-labelledby="login-title"><div class="dialog-head"><h2 id="login-title">Acceso de gestión</h2><button class="close" data-close aria-label="Cerrar">×</button></div><div class="dialog-body"><form id="login-form"><div id="login-error" class="error" role="alert" hidden></div><label>Usuario<input name="username" value="admin" autocomplete="username" required></label><label>Clave<input name="password" type="password" value="Lima2026!" autocomplete="current-password" required></label><button class="wine" type="submit">Iniciar sesión</button><p class="hint">Acceso de prueba: admin / Lima2026!<br>Gestión local de la cartelera en este navegador.</p></form></div></section></div>
-<div id="management-modal" class="modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="management-title"><div class="dialog-head"><h2 id="management-title">Gestión de audiencias</h2><button class="close" data-close aria-label="Cerrar">×</button></div><div class="dialog-body"><div class="admin-bar"><strong>Administrador · Corte Superior de Justicia de Lima</strong><div><button id="new">＋ Nueva audiencia</button> <button id="logout">Cerrar sesión</button></div></div><section class="excel-import" aria-labelledby="excel-title"><h3 id="excel-title">📂 Cargar Excel de Audiencias</h3><label id="excel-drop" class="excel-drop" tabindex="0" for="excel-file">Arrastra aquí el reporte diario .xlsx o pulsa para seleccionarlo<input id="excel-file" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label><p class="hint">Columnas del reporte de Iquitos. Se reemplazan las importaciones de las fechas incluidas en el archivo; los registros de gestión y de otras fechas se conservan.</p><div id="excel-result" role="status" aria-live="polite"></div><button id="view-board" type="button" class="wine" hidden style="margin-top:12px">Ver cartelera en TV</button></section><div class="hint">Audiencias de la fecha seleccionada. Los cambios se reflejan de inmediato en la cartelera y en otras pestañas de este navegador.</div><div id="management-list" class="management-list"></div><section id="manual-entry" hidden aria-labelledby="form-title"><h3 id="form-title">Nueva audiencia</h3><form id="hearing-form"><div id="form-error" class="error" role="alert" hidden></div><div class="fields"><label>Fecha<input name="date" type="date" required></label><label>Hora de inicio<input name="hora_inicio" type="time" min="07:00" max="23:58" required></label><label>Hora de fin<input name="hora_fin" type="time" min="07:01" max="23:59" required></label><label>Expediente<input name="case" required maxlength="80" placeholder="00001-2026-1-JR-PE-01"></label><label>Juzgado / Sala<input name="court" required maxlength="140"></label><label>Juez<input name="judge" required maxlength="120"></label><label>Tipo de audiencia<input name="type" required maxlength="120"></label><label>Delito<input name="crime" required maxlength="140"></label><label>Imputado(s)<input name="defendants" maxlength="250"></label><label>Agraviado(s)<input name="victims" maxlength="250"></label><label>Especialista de audiencia<input name="specialist" required maxlength="120"></label><label>Sala<input name="room" required maxlength="100"></label><label>Modalidad<select name="modality"><option>Presencial</option><option>Virtual</option><option>Mixta</option></select></label><label>Enlace Google Meet (opcional)<input name="meet" type="url" placeholder="https://meet.google.com/abc-defg-hij" maxlength="200"></label><label>Estado<select name="status"><option>Pendiente</option><option>En Curso</option><option>Concluida</option><option>Reprogramada</option><option>Suspendida</option></select></label></div><div class="actions"><button type="button" id="reset-form">Limpiar / Nueva</button><button type="submit" class="wine" id="manual-submit">Registrar audiencia manual</button></div></form><p class="hint">Pendiente, En Curso y Concluida se calculan automáticamente con la fecha y hora de Perú. Reprogramada y Suspendida se mantienen hasta que el administrador las cambie. Se verifican cruces de sala, juez y especialista. Las audiencias reprogramadas no reservan recursos. Los registros anteriores se conservan.</p></section></div></section></div>
+<div id="management-modal" class="modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="management-title"><div class="dialog-head"><h2 id="management-title">Gestión de audiencias</h2><button class="close" data-close aria-label="Cerrar">×</button></div><div class="dialog-body"><div class="admin-bar"><strong>Administrador · Corte Superior de Justicia de Lima</strong><div><button id="new">＋ Nueva audiencia</button> <button id="logout">Cerrar sesión</button></div></div><section class="excel-import" aria-labelledby="excel-title"><h3 id="excel-title">📂 Cargar Excel de Audiencias</h3><label id="excel-drop" class="excel-drop" tabindex="0" for="excel-file">Arrastra aquí el reporte diario .xlsx o pulsa para seleccionarlo<input id="excel-file" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label><p class="hint">Columnas del reporte de Iquitos. Se reemplazan las importaciones de las fechas incluidas en el archivo; los registros de gestión y de otras fechas se conservan.</p><p class="hint" id="server-excel-status">Lectura automática de audiencias.xlsx al iniciar y cada 2 minutos. Puedes cargar el reporte manualmente como respaldo.</p><div id="excel-result" role="status" aria-live="polite"></div><button id="view-board" type="button" class="wine" hidden style="margin-top:12px">Ver cartelera en TV</button></section><div class="hint">Audiencias de la fecha seleccionada. Los cambios se reflejan de inmediato en la cartelera y en otras pestañas de este navegador.</div><div id="management-list" class="management-list"></div><section id="manual-entry" hidden aria-labelledby="form-title"><h3 id="form-title">Nueva audiencia</h3><form id="hearing-form"><div id="form-error" class="error" role="alert" hidden></div><div class="fields"><label>Fecha<input name="date" type="date" required></label><label>Hora de inicio<input name="hora_inicio" type="time" min="07:00" max="23:58" required></label><label>Hora de fin<input name="hora_fin" type="time" min="07:01" max="23:59" required></label><label>Expediente<input name="case" required maxlength="80" placeholder="00001-2026-1-JR-PE-01"></label><label>Juzgado / Sala<input name="court" required maxlength="140"></label><label>Juez<input name="judge" required maxlength="120"></label><label>Tipo de audiencia<input name="type" required maxlength="120"></label><label>Delito<input name="crime" required maxlength="140"></label><label>Imputado(s)<input name="defendants" maxlength="250"></label><label>Agraviado(s)<input name="victims" maxlength="250"></label><label>Especialista de audiencia<input name="specialist" required maxlength="120"></label><label>Sala<input name="room" required maxlength="100"></label><label>Modalidad<select name="modality"><option>Presencial</option><option>Virtual</option><option>Mixta</option></select></label><label>Enlace Google Meet (opcional)<input name="meet" type="url" placeholder="https://meet.google.com/abc-defg-hij" maxlength="200"></label><label>Estado<select name="status"><option>Pendiente</option><option>En Curso</option><option>Concluida</option><option>Reprogramada</option><option>Suspendida</option></select></label></div><div class="actions"><button type="button" id="reset-form">Limpiar / Nueva</button><button type="submit" class="wine" id="manual-submit">Registrar audiencia manual</button></div></form><p class="hint">Pendiente, En Curso y Concluida se calculan automáticamente con la fecha y hora de Perú. Reprogramada y Suspendida se mantienen hasta que el administrador las cambie. Se verifican cruces de sala, juez y especialista. Las audiencias reprogramadas no reservan recursos. Los registros anteriores se conservan.</p></section></div></section></div>
 <script>
 'use strict';
 function generarId() {
@@ -339,9 +339,26 @@ function parseJudicialWorkbook(workbook){
  if(!records.length)throw Error('El reporte no contiene audiencias válidas.');
  return records;
 }
+
+let manualImportInProgress=false,autoFetchInProgress=false,lastAutomaticBytes=null;
+function applyImportedRecords(imported,{automatic=false}={}){
+ const current=readEvents(),dates=new Set(imported.map(e=>e.date));
+ const updatedRecords=imported.map(e=>{
+  const old=current.find(item=>item.importKey===e.importKey);
+  return {...e,id:old?.id||e.id,status:old&&specialStatus(old)?old.status:e.status};
+ });
+ const updated=current.filter(e=>!e.demo&&!(e.imported&&dates.has(e.date))).concat(updatedRecords);
+ localStorage.setItem(storageKey,JSON.stringify(updated));
+ events=updated;storageHealthy=true;
+ if(!automatic)page=0;
+ populateSites();selectAvailableDate(peruDate());
+ if(!automatic){resetForm();render();notify('');}else renderBoards();
+ return dates;
+}
 async function importExcel(file){
  const result=$('#excel-result'),input=$('#excel-file');
  $('#view-board').hidden=true;result.textContent='Leyendo reporte…';result.className='';
+ manualImportInProgress=true;
  try{
   if(!authenticated())throw Error('Inicia sesión para importar el reporte.');
   if(!file||!/\.xlsx$/i.test(file.name))throw Error('Selecciona un archivo .xlsx.');
@@ -350,20 +367,34 @@ async function importExcel(file){
   const workbook=XLSX.read(await file.arrayBuffer(),{type:'array',cellDates:false});
   const imported=parseJudicialWorkbook(workbook);
   if(!authenticated())throw Error('La sesión terminó. Inicia sesión e importa nuevamente.');
-  const current=readEvents(),dates=new Set(imported.map(e=>e.date));
-  const updatedRecords=imported.map(e=>{
-   const old=current.find(item=>item.importKey===e.importKey);
-   return {...e,id:old?.id||e.id,status:old&&specialStatus(old)?old.status:e.status};
-  });
-  const updated=current.filter(e=>!e.demo&&!(e.imported&&dates.has(e.date))).concat(updatedRecords);
-  localStorage.setItem(storageKey,JSON.stringify(updated));
-  events=updated;storageHealthy=true;page=0;
-  populateSites();selectAvailableDate(peruDate());
-  resetForm();render();notify('');
+  const dates=applyImportedRecords(imported);
   $('#view-board').hidden=false;result.className='excel-success';result.textContent=imported.length+' audiencias importadas. Fechas: '+[...dates].sort().join(', ')+'. Tablero actualizado.';
  }catch(error){result.className='error';result.textContent=error.message;}
- finally{input.disabled=false;input.value='';}
+ finally{manualImportInProgress=false;input.disabled=false;input.value='';}
 }
+async function loadServerExcel(){
+ if(autoFetchInProgress||manualImportInProgress||!window.XLSX)return;
+ autoFetchInProgress=true;
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),20000);
+ try{
+  const response=await fetch('./audiencias.xlsx',{cache:'no-store',signal:controller.signal});
+  if(!response.ok)return;
+  const buffer=await response.arrayBuffer(),bytes=new Uint8Array(buffer);
+  if(lastAutomaticBytes&&bytes.length===lastAutomaticBytes.length&&bytes.every((value,i)=>value===lastAutomaticBytes[i]))return;
+  const workbook=XLSX.read(buffer,{type:'array',cellDates:false});
+  const imported=parseJudicialWorkbook(workbook);
+  if(manualImportInProgress)return;
+  applyImportedRecords(imported,{automatic:true});
+  lastAutomaticBytes=bytes;
+  $('#server-excel-status').textContent='Última lectura de audiencias.xlsx: '+new Intl.DateTimeFormat('es-PE',{timeZone:'America/Lima',hour:'2-digit',minute:'2-digit'}).format(new Date())+'. '+imported.length+' audiencias.';
+ }catch{
+  // Un archivo ausente, inválido o temporalmente inaccesible conserva el tablero y la carga manual.
+ }finally{clearTimeout(timeout);autoFetchInProgress=false;}
+}
+window.addEventListener('load',()=>{
+ loadServerExcel();
+ setInterval(loadServerExcel,120000);
+},{once:true});
 $('#excel-file').addEventListener('change',event=>{if(event.target.files[0])importExcel(event.target.files[0]);});
 const excelDrop=$('#excel-drop');
 excelDrop.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();$('#excel-file').click();}});
